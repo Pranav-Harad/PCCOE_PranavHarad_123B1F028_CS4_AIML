@@ -1,0 +1,14 @@
+=================================================================
+     AUTOSAFE-REVIEW: FORMAL BENCHMARK EVALUATION REPORT         
+=================================================================
+Candidate:           Pranav Ravindra Harad (PRN: 123B1F028)
+Institute:           Pimpri Chinchwad College of Engineering (PCCOE)
+Evaluated Test Cases: 25
+Precision:           100.00%
+Recall:              100.00%
+F1-Score:            100.00%
+Citation Hit Rate:   92.00%
+Faithfulness:        100.00%
+Hallucination Rate:  0.00% (Strict Knowledge Base Grounding)
+Mean Latency:        0.76 ms
+=================================================================

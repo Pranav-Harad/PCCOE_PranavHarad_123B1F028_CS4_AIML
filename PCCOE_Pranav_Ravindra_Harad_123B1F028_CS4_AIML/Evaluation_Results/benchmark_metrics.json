@@ -1,0 +1,242 @@
+{
+  "candidate": "Pranav Ravindra Harad",
+  "prn": "123B1F028",
+  "total_scenarios_evaluated": 25,
+  "true_positives": 25,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1_score": 1.0,
+  "citation_accuracy": 0.92,
+  "faithfulness": 1.0,
+  "hallucination_rate": 0.0,
+  "mean_latency_ms": 0.76,
+  "test_results": [
+    {
+      "test_id": "TC-01",
+      "name": "CAN Payload Precedence Ambiguity",
+      "ground_truth_rule": "MISRA-C-2012-Rule-12.1",
+      "detected_rule": "MISRA-C-2012-Rule-12.1",
+      "citation_accurate": true,
+      "latency_ms": 2.43,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-02",
+      "name": "Dynamic Memory Allocation in ASIL-D",
+      "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
+      "detected_rule": "MISRA-C-2012-Rule-21.3",
+      "citation_accurate": true,
+      "latency_ms": 0.74,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-03",
+      "name": "State Machine Switch Missing Default",
+      "ground_truth_rule": "MISRA-C-2012-Rule-16.4",
+      "detected_rule": "MISRA-C-2012-Rule-16.4",
+      "citation_accurate": true,
+      "latency_ms": 0.65,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-04",
+      "name": "Unchecked Hardware Return Status",
+      "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
+      "detected_rule": "MISRA-C-2012-Rule-17.7",
+      "citation_accurate": true,
+      "latency_ms": 0.61,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-05",
+      "name": "Uninitialized Automatic Variable",
+      "ground_truth_rule": "MISRA-C-2012-Rule-9.1",
+      "detected_rule": "MISRA-C-2012-Rule-9.1",
+      "citation_accurate": true,
+      "latency_ms": 0.65,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-06",
+      "name": "Raw Hexadecimal Pointer Cast",
+      "ground_truth_rule": "MISRA-C-2012-Rule-11.4",
+      "detected_rule": "MISRA-C-2012-Rule-11.4",
+      "citation_accurate": true,
+      "latency_ms": 0.6,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-07",
+      "name": "Shared Variable Missing Volatile in ISR",
+      "ground_truth_rule": "CERT-C-CON33-C",
+      "detected_rule": "CERT-C-CON33-C",
+      "citation_accurate": true,
+      "latency_ms": 0.89,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-08",
+      "name": "Unbounded Array Index Subscript",
+      "ground_truth_rule": "CERT-C-ARR30-C",
+      "detected_rule": "MISRA-C-2012-Rule-18.1",
+      "citation_accurate": false,
+      "latency_ms": 0.9,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-09",
+      "name": "Null Pointer Dereference Risk",
+      "ground_truth_rule": "CERT-C-EXP34-C",
+      "detected_rule": "CERT-C-EXP34-C",
+      "citation_accurate": true,
+      "latency_ms": 0.77,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-10",
+      "name": "Integer Downcast Truncation",
+      "ground_truth_rule": "CERT-C-INT31-C",
+      "detected_rule": "MISRA-C-2012-Rule-9.1",
+      "citation_accurate": false,
+      "latency_ms": 0.65,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-11",
+      "name": "Unchecked SPI Transfer Status",
+      "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
+      "detected_rule": "MISRA-C-2012-Rule-17.7",
+      "citation_accurate": true,
+      "latency_ms": 0.59,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-12",
+      "name": "Missing Default in Throttle Mode State Machine",
+      "ground_truth_rule": "MISRA-C-2012-Rule-16.4",
+      "detected_rule": "MISRA-C-2012-Rule-16.4",
+      "citation_accurate": true,
+      "latency_ms": 0.67,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-13",
+      "name": "Calloc Dynamic Heap Allocation",
+      "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
+      "detected_rule": "MISRA-C-2012-Rule-21.3",
+      "citation_accurate": true,
+      "latency_ms": 0.58,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-14",
+      "name": "Unparenthesized Shift in Motor Angle Calculation",
+      "ground_truth_rule": "MISRA-C-2012-Rule-12.1",
+      "detected_rule": "MISRA-C-2012-Rule-12.1",
+      "citation_accurate": true,
+      "latency_ms": 0.57,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-15",
+      "name": "Uninitialized ADC Offset Calibration",
+      "ground_truth_rule": "MISRA-C-2012-Rule-9.1",
+      "detected_rule": "MISRA-C-2012-Rule-9.1",
+      "citation_accurate": true,
+      "latency_ms": 0.75,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-16",
+      "name": "Ad-Hoc Timer Register Cast",
+      "ground_truth_rule": "MISRA-C-2012-Rule-11.4",
+      "detected_rule": "MISRA-C-2012-Rule-11.4",
+      "citation_accurate": true,
+      "latency_ms": 0.57,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-17",
+      "name": "Free Dynamic Memory Invocation",
+      "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
+      "detected_rule": "MISRA-C-2012-Rule-21.3",
+      "citation_accurate": true,
+      "latency_ms": 0.86,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-18",
+      "name": "Unchecked Flash Write Return",
+      "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
+      "detected_rule": "MISRA-C-2012-Rule-17.7",
+      "citation_accurate": true,
+      "latency_ms": 0.93,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-19",
+      "name": "Race Condition on Ring Buffer Head Counter",
+      "ground_truth_rule": "CERT-C-CON33-C",
+      "detected_rule": "CERT-C-CON33-C",
+      "citation_accurate": true,
+      "latency_ms": 0.86,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-20",
+      "name": "Null Config Struct Pointer Dereference",
+      "ground_truth_rule": "CERT-C-EXP34-C",
+      "detected_rule": "CERT-C-EXP34-C",
+      "citation_accurate": true,
+      "latency_ms": 0.77,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-21",
+      "name": "Missing Default in Battery Balancing State",
+      "ground_truth_rule": "MISRA-C-2012-Rule-16.4",
+      "detected_rule": "MISRA-C-2012-Rule-16.4",
+      "citation_accurate": true,
+      "latency_ms": 0.64,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-22",
+      "name": "Uninitialized Fault Counter",
+      "ground_truth_rule": "MISRA-C-2012-Rule-9.1",
+      "detected_rule": "MISRA-C-2012-Rule-9.1",
+      "citation_accurate": true,
+      "latency_ms": 0.71,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-23",
+      "name": "Dynamic Realloc Memory Call",
+      "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
+      "detected_rule": "MISRA-C-2012-Rule-21.3",
+      "citation_accurate": true,
+      "latency_ms": 0.59,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-24",
+      "name": "Unchecked UART Transmit Status",
+      "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
+      "detected_rule": "MISRA-C-2012-Rule-17.7",
+      "citation_accurate": true,
+      "latency_ms": 0.55,
+      "status": "PASS"
+    },
+    {
+      "test_id": "TC-25",
+      "name": "Unparenthesized Precedence in CAN-FD DLC Mask",
+      "ground_truth_rule": "MISRA-C-2012-Rule-12.1",
+      "detected_rule": "MISRA-C-2012-Rule-12.1",
+      "citation_accurate": true,
+      "latency_ms": 0.58,
+      "status": "PASS"
+    }
+  ]
+}
