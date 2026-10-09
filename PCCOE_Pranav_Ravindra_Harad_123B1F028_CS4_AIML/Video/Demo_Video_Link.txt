@@ -1,0 +1,30 @@
+================================================================================
+           TATA TECHNOLOGIES TECHPULSE FY-26 | DEMO VIDEO RECORDING LINK
+================================================================================
+
+Candidate Name:         Pranav Ravindra Harad
+PRN:                    123B1F028
+College:                Pimpri Chinchwad College of Engineering (PCCOE), Pune
+Case Study:             CS4 - Secure Code Debugging and Review Assistant
+Project Title:          AutoSafe-Review: Air-Gapped, AST-Aware Hybrid Diagnostic
+                        & MISRA/ISO 26262 ECU Code Review Assistant
+
+--------------------------------------------------------------------------------
+DEMONSTRATION VIDEO LINKS (Google Drive / YouTube Unlisted):
+--------------------------------------------------------------------------------
+
+Google Drive Video Link:
+https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_VIDEO_ID/view?usp=sharing
+
+YouTube (Unlisted) Link:
+https://youtu.be/YOUR_YOUTUBE_VIDEO_ID
+
+--------------------------------------------------------------------------------
+RECORDING INSTRUCTIONS:
+--------------------------------------------------------------------------------
+1. Use Windows Game Bar (Press Win + Alt + R) or OBS Studio to record your screen and audio.
+2. Follow the script in DEMO_VIDEO_SCRIPT.md (Duration: 6 to 8 minutes).
+3. Ensure the Streamlit web app (http://localhost:8501/) and code inspection are clearly visible.
+4. Upload the MP4 file to your Google Drive, set access to "Anyone with the link can view",
+   and paste the link into the Google Form submission field.
+================================================================================
