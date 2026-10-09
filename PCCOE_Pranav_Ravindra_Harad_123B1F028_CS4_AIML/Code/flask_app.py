@@ -20,7 +20,10 @@ from utils.sarif_exporter import export_findings_to_sarif
 from utils.deviation_generator import generate_deviation_permit
 from utils.report_exporter import export_findings_to_csv, export_findings_to_markdown
 
-app = Flask(__name__, template_folder="templates", static_folder="static")
+templates_dir = os.path.join(BASE_DIR, "templates")
+static_dir = os.path.join(BASE_DIR, "static")
+app = Flask(__name__, template_folder=templates_dir, static_folder=static_dir)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Initialize Orchestrator
 rules_dir = os.path.join(PROJECT_ROOT, "Input_Data", "rules")
