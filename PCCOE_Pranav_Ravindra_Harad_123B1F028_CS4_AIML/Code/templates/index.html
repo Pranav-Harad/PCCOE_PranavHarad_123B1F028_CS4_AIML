@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoSafe-Review | Tata TechPulse FY-26</title>
+  <link rel="stylesheet" href="/static/css/cockpit.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand-section">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <div class="brand-title">AutoSafe-Review</div>
+          <div class="brand-sub">Tata TechPulse CS4</div>
+        </div>
+      </div>
+
+      <div class="airgap-badge">
+        <div class="pulse-dot"></div>
+        <span>100% AIR-GAPPED ON-PREM</span>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-name">Pranav Ravindra Harad</div>
+        <div class="profile-meta">PRN: <strong>123B1F028</strong></div>
+        <div class="profile-meta">PCCOE, Pune | ASUS TUF 15</div>
+      </div>
+
+      <div class="sidebar-label">Automotive ECU Targets</div>
+      <div class="module-nav">
+        <button class="module-btn active" data-module="bms_cell_monitor.c">
+          <span>🔋 BMS Cell Monitor</span>
+          <span class="asil-tag asil-c">ASIL-C</span>
+        </button>
+        <button class="module-btn" data-module="throttle_actuator_driver.c">
+          <span>⚡ Throttle Actuator</span>
+          <span class="asil-tag asil-d">ASIL-D</span>
+        </button>
+        <button class="module-btn" data-module="can_transceiver.c">
+          <span>📡 CAN Transceiver</span>
+          <span class="asil-tag asil-b">ASIL-B</span>
+        </button>
+      </div>
+
+      <div class="sidebar-label">Knowledge Base Status</div>
+      <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+        • <strong>17</strong> Verified Safety Rules<br>
+        • MISRA C:2012 Guidelines<br>
+        • SEI CERT C Standards<br>
+        • ISO 26262 Part 6 ASIL Rules<br>
+        • Model: <strong>Qwen2.5-Coder-7B</strong>
+      </div>
+
+      <div style="margin-top: auto; font-size: 11px; color: var(--text-muted); text-align: center;">
+        Tata Technologies TechPulse FY-26<br>Applied AI/ML Capstone Project
+      </div>
+    </aside>
+
+    <!-- MAIN COCKPIT -->
+    <main class="main-content">
+      
+      <!-- TOP NAVBAR -->
+      <header class="top-navbar">
+        <div class="top-title">
+          <span>Automotive Code Debugging & Review Cockpit</span>
+          <span style="font-size: 12px; background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); padding: 3px 8px; border-radius: 4px;">
+            Active: <strong id="active-file-title">bms_cell_monitor.c</strong>
+          </span>
+        </div>
+
+        <div class="top-actions">
+          <button id="btn-run-review" class="btn-primary">
+            <span>🚀</span> Run Multi-Modal Automotive Review
+          </button>
+        </div>
+      </header>
+
+      <!-- COCKPIT BODY -->
+      <div class="cockpit-body">
+        
+        <!-- KPI METRICS -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Total Findings</div>
+            <div class="kpi-value" id="kpi-total-val">--</div>
+            <div class="kpi-sub">Synthesized by Hybrid Engine</div>
+          </div>
+          <div class="kpi-card kpi-critical">
+            <div class="kpi-title">Critical / Mandatory</div>
+            <div class="kpi-value" id="kpi-critical-val" style="color: var(--accent-crimson);">--</div>
+            <div class="kpi-sub">Direct Safety / ASIL Hazard</div>
+          </div>
+          <div class="kpi-card kpi-required">
+            <div class="kpi-title">Required / High</div>
+            <div class="kpi-value" id="kpi-required-val" style="color: var(--accent-amber);">--</div>
+            <div class="kpi-sub">Standard Rule Breaches</div>
+          </div>
+          <div class="kpi-card kpi-advisory">
+            <div class="kpi-title">Advisory</div>
+            <div class="kpi-value" id="kpi-advisory-val" style="color: var(--accent-cyan);">--</div>
+            <div class="kpi-sub">Code Quality / Precedence</div>
+          </div>
+          <div class="kpi-card kpi-faithfulness">
+            <div class="kpi-title">Faithfulness</div>
+            <div class="kpi-value" id="kpi-faith-val" style="color: var(--accent-emerald);">--</div>
+            <div class="kpi-sub">0.0% Hallucination Rate</div>
+          </div>
+        </div>
+
+        <!-- SPLIT WORKBENCH -->
+        <div class="workbench-split">
+          
+          <!-- LEFT: MULTI-MODAL CODE & LOG VIEWER -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span>📄</span> Diagnostic Ingestion & Source Inspector
+              </div>
+              <div class="tab-nav">
+                <button class="tab-btn active" data-tab="code">C Source Code</button>
+                <button class="tab-btn" data-tab="gcc">GCC Compiler Logs</button>
+                <button class="tab-btn" data-tab="sarif">SARIF Static Analysis</button>
+              </div>
+            </div>
+
+            <div id="tab-code-view" class="code-viewer-container">
+              <div id="code-viewer-content"></div>
+            </div>
+
+            <div id="tab-gcc-view" class="code-viewer-container" style="display: none; padding: 16px;">
+              <pre id="gcc-text-view" style="color: #cbd5e1; font-family: var(--font-code); font-size: 12px;"></pre>
+            </div>
+
+            <div id="tab-sarif-view" class="code-viewer-container" style="display: none; padding: 16px;">
+              <pre id="sarif-text-view" style="color: #cbd5e1; font-family: var(--font-code); font-size: 12px;"></pre>
+            </div>
+          </div>
+
+          <!-- RIGHT: INTERACTIVE TRIAGE WORKBENCH -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span>🔍</span> Grounded Review Findings & Triage
+              </div>
+              <div class="filter-bar" style="margin-bottom: 0;">
+                <button class="filter-btn active" data-sev="ALL" onclick="filterSeverity('ALL')">All</button>
+                <button class="filter-btn" data-sev="MANDATORY" onclick="filterSeverity('MANDATORY')">Mandatory</button>
+                <button class="filter-btn" data-sev="REQUIRED" onclick="filterSeverity('REQUIRED')">Required</button>
+                <button class="filter-btn" data-sev="ADVISORY" onclick="filterSeverity('ADVISORY')">Advisory</button>
+              </div>
+            </div>
+
+            <div style="padding: 16px; overflow-y: auto; max-height: 440px;">
+              <div id="findings-container" class="findings-list">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- EXPORT ARTIFACTS FOOTER -->
+        <div class="panel-card" style="padding: 20px 24px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <div style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: #fff;">
+                📤 Compliance Reports & CI/CD Pipeline Artifacts
+              </div>
+              <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 4px;">
+                Export structured review outputs in industry-standard formats ready for automated build gates.
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <button class="btn-secondary" onclick="exportSARIF()">📥 Download OASIS SARIF v2.1.0</button>
+              <button class="btn-secondary" onclick="exportCSV()">📊 Download CSV Matrix</button>
+              <button class="btn-secondary" onclick="exportMarkdown()">📄 Download Audit Markdown</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: MISRA DEVIATION PERMIT GENERATOR -->
+  <div id="deviation-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div style="font-family: var(--font-heading); font-size: 17px; font-weight: 700; color: #fff;">
+          📝 Automotive MISRA Deviation Permit Generator
+        </div>
+        <button id="modal-close-btn" style="background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer;">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Finding Identifier & Rule ID:</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="dev-finding-id" class="form-input" readonly style="width: 35%;">
+          <input type="text" id="dev-rule-id" class="form-input" readonly style="width: 65%;">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Software Unit & Location:</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="dev-file-name" class="form-input" readonly style="width: 70%;">
+          <input type="text" id="dev-line-num" class="form-input" readonly style="width: 30%;">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Technical Engineering Justification (Why rule cannot be met):</label>
+        <textarea id="dev-rationale" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Safety Compensating Controls & Risk Mitigations (ISO 26262):</label>
+        <textarea id="dev-mitigation" class="form-textarea" rows="2"></textarea>
+      </div>
+
+      <button class="btn-primary" onclick="submitDeviation()" style="width: 100%; justify-content: center; margin-top: 8px;">
+        Generate Official Signed Permit Record
+      </button>
+
+      <div id="dev-output-container" style="display: none; margin-top: 18px;">
+        <label class="form-label">Generated Deviation Permit Record (MISRA Compliance:2020):</label>
+        <textarea id="dev-permit-text" class="form-textarea" rows="8" readonly style="font-family: var(--font-code); font-size: 11px;"></textarea>
+        <button class="btn-secondary" onclick="downloadPermitFile()" style="margin-top: 10px; width: 100%;">
+          📥 Download Signed Permit File (.txt)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="/static/js/cockpit.js"></script>
+</body>
+</html>
