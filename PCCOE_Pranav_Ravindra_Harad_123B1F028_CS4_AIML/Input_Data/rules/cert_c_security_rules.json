@@ -1,0 +1,67 @@
+[
+  {
+    "rule_id": "CERT-C-ARR30-C",
+    "standard": "SEI CERT C",
+    "severity": "High",
+    "headline": "Do not form or use out-of-bounds pointers or array subscripts",
+    "description": "Ensure pointer arithmetic and array indexing stay within valid object boundaries to prevent memory corruption and potential code execution vulnerabilities.",
+    "automotive_rationale": "In ECU communication gateways (UDS diagnostic services, CAN-FD message parsers), malicious or malformed packets from OBD-II ports can trigger out-of-bounds buffer writes, overwriting critical control parameters or RTOS return addresses.",
+    "asil_level_impact": "ISO 21434 Cybersecurity Threat Level: Critical / ASIL-D.",
+    "cwe_mapping": "CWE-119 (Improper Restriction of Operations within the Bounds of a Memory Buffer), CWE-121 (Stack-based Buffer Overflow)",
+    "compliant_example": "if (pdu_len <= CAN_MAX_PAYLOAD_BYTES) {\n    memcpy(rx_frame.data, raw_buf, pdu_len);\n} else {\n    return E_PAYLOAD_TOO_LARGE;\n}",
+    "non_compliant_example": "memcpy(rx_frame.data, raw_buf, pdu_len); /* pdu_len is untrusted input from CAN bus without upper bound check */",
+    "remediation": "Enforce strict length validation against sizeof target buffer before any memory copy operation."
+  },
+  {
+    "rule_id": "CERT-C-INT31-C",
+    "standard": "SEI CERT C",
+    "severity": "Medium",
+    "headline": "Ensure that integer conversions do not result in lost or misinterpreted data",
+    "description": "Converting an integer to another type with a different width or signedness can result in truncation, sign change, or overflow.",
+    "automotive_rationale": "Vehicle sensor readings (vehicle speed, motor RPM, steering angle) frequently convert between signed 32-bit CAN signals and 16-bit ECU control registers. Truncation can invert negative values or saturate motor controllers unexpectedly.",
+    "asil_level_impact": "ASIL-C (Severe unintended motor acceleration or regenerative brake cutoff).",
+    "cwe_mapping": "CWE-197 (Numeric Truncation Error), CWE-190 (Integer Overflow or Wraparound)",
+    "compliant_example": "if ((target_rpm >= MIN_SAFE_RPM) && (target_rpm <= MAX_SAFE_RPM)) {\n    actuator_cmd = (uint16_t)target_rpm;\n}",
+    "non_compliant_example": "uint16_t actuator_cmd = (uint16_t)target_rpm; /* Truncation if target_rpm exceeds 65535 */",
+    "remediation": "Perform explicit value-range validation before downcasting integers to narrower types."
+  },
+  {
+    "rule_id": "CERT-C-CON33-C",
+    "standard": "SEI CERT C",
+    "severity": "High",
+    "headline": "Avoid race conditions when accessing shared objects between threads and ISRs",
+    "description": "Shared global variables modified in Interrupt Service Routines (ISRs) and read in task contexts must use atomic access or enter critical sections.",
+    "automotive_rationale": "In ECU firmware, high-priority CAN RX interrupt handlers write to shared ring buffers while lower-priority 10ms periodic control tasks read from them. Unsynchronized access causes race conditions and corrupted vehicle state matrices.",
+    "asil_level_impact": "ASIL-D (Non-deterministic vehicle telemetry causing sporadic safety interlock triggers).",
+    "cwe_mapping": "CWE-362 (Concurrent Execution using Shared Resource with Improper Synchronization)",
+    "compliant_example": "SuspendAllInterrupts();\nuint16_t current_val = g_can_mailbox_counter;\nResumeAllInterrupts();",
+    "non_compliant_example": "uint16_t current_val = g_can_mailbox_counter; /* Race condition if ISR interrupts read mid-word */",
+    "remediation": "Wrap shared object accesses in AUTOSAR SuspendAllInterrupts()/ResumeAllInterrupts() or use C11 atomic primitives."
+  },
+  {
+    "rule_id": "CERT-C-EXP34-C",
+    "standard": "SEI CERT C",
+    "severity": "High",
+    "headline": "Do not dereference null pointers",
+    "description": "Ensure pointer validity before dereferencing to prevent hard fault exceptions and system crashes.",
+    "automotive_rationale": "Passing null pointers across AUTOSAR Run-Time Environment (RTE) ports or device driver callbacks triggers ARM Cortex-M Memory Management Fault (MemManage / HardFault), resulting in immediate ECU reboot during driving.",
+    "asil_level_impact": "ASIL-D (Sudden ECU reset leading to loss of power steering or brake assist).",
+    "cwe_mapping": "CWE-476 (NULL Pointer Dereference)",
+    "compliant_example": "if (p_config != NULL) {\n    reg_val = p_config->baud_rate;\n} else {\n    return E_NOT_OK;\n}",
+    "non_compliant_example": "reg_val = p_config->baud_rate; /* Dereference without checking for NULL */",
+    "remediation": "Add defensive null-check guards at the start of all public API functions and driver entry points."
+  },
+  {
+    "rule_id": "CERT-C-MEM34-C",
+    "standard": "SEI CERT C",
+    "severity": "High",
+    "headline": "Only free memory allocated dynamically",
+    "description": "Attempting to free memory allocated statically or on the stack results in undefined behavior and memory allocator corruption.",
+    "automotive_rationale": "Corrupting the internal memory structures can allow attackers to hijack control flow via stack manipulation.",
+    "asil_level_impact": "ISO 21434 Cybersecurity / ASIL-D.",
+    "cwe_mapping": "CWE-590 (Free of Memory not on the Heap)",
+    "compliant_example": "/* Use strictly static buffers and avoid calling free() */",
+    "non_compliant_example": "char local_buf[64];\nfree(local_buf); /* Attempt to free stack memory */",
+    "remediation": "Do not call free on statically declared buffers or stack variables."
+  }
+]

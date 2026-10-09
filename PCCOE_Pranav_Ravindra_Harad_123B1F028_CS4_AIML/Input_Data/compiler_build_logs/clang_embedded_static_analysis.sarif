@@ -1,0 +1,102 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Clang-Tidy-Automotive",
+          "semanticVersion": "17.0.6",
+          "rules": [
+            {
+              "id": "clang-analyzer-core.uninitialized.Branch",
+              "shortDescription": {
+                "text": "Branch condition evaluates to a garbage value"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "cert-arr30-c",
+              "shortDescription": {
+                "text": "Out of bounds memory access detected"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "misra-c2012-21.3",
+              "shortDescription": {
+                "text": "Dynamic memory allocation function malloc forbidden in safety-critical code"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "cert-arr30-c",
+          "message": {
+            "text": "Array subscript 'cell_index' is not validated against upper boundary 'BMS_MAX_CELLS' (96)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "clang-analyzer-core.uninitialized.Branch",
+          "message": {
+            "text": "Branch condition evaluates to a garbage value because 'difference' is uninitialized"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "throttle_actuator_driver.c"
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "misra-c2012-21.3",
+          "message": {
+            "text": "Dynamic memory allocation function 'malloc' is invoked in ASIL-D critical unit"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "throttle_actuator_driver.c"
+                },
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 39
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

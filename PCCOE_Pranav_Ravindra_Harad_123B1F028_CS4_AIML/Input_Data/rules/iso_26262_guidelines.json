@@ -1,0 +1,28 @@
+[
+  {
+    "guideline_id": "ISO-26262-6-TABLE-2",
+    "standard": "ISO 26262:2018 Part 6",
+    "asil_level": "ASIL-D",
+    "clause": "Software Architectural & Unit Design",
+    "recommendation": "Enforcement of low complexity, limited size of components, and prohibition of dynamic memory allocation",
+    "description": "For ASIL C and D, dynamic memory allocation at runtime is highly not recommended (--) or strictly prohibited due to unpredictable timing and failure risks.",
+    "key_mitigations": [
+      "Use static memory pools with compile-time bounded size.",
+      "Prevent recursion and verify loop termination boundaries.",
+      "Implement defensive checks for pointer validity."
+    ]
+  },
+  {
+    "guideline_id": "ISO-26262-6-TABLE-3",
+    "standard": "ISO 26262:2018 Part 6",
+    "asil_level": "ASIL-C/D",
+    "clause": "Design Principles for Software Safety",
+    "recommendation": "Defensive programming and range checking of input and output signals",
+    "description": "All external and inter-module parameters (e.g. sensor readings, CAN signals) must be verified against physical boundaries before consumption.",
+    "key_mitigations": [
+      "Plausibility checks on voltage, current, temperature, and speed.",
+      "Watchdog monitoring for timing alive-counters.",
+      "Safe state fallback upon invalid parameter detection."
+    ]
+  }
+]
