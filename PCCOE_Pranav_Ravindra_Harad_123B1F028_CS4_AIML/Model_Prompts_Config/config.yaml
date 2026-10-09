@@ -1,0 +1,37 @@
+# AutoSafe-Review System Configuration
+# Tata Technologies TechPulse FY-26 | Case Study 4
+# Student: Pranav Ravindra Harad | PRN: 123B1F028 | PCCOE, Pune
+
+project:
+  name: "AutoSafe-Review"
+  version: "1.0.0"
+  domain: "Automotive ECU Embedded Software & Functional Safety"
+  asil_target_coverage: ["ASIL-A", "ASIL-B", "ASIL-C", "ASIL-D"]
+
+local_llm:
+  provider: "ollama_or_local_fallback"
+  ollama_endpoint: "http://localhost:11434/api/generate"
+  primary_model: "qwen2.5-coder:7b"
+  lightweight_model: "qwen2.5-coder:3b"
+  fallback_to_local_deterministic: true
+  temperature: 0.1
+  max_tokens: 1500
+  strict_citation_enforcement: true
+
+rag:
+  vector_store: "chroma_or_local_tfidf"
+  top_k_retrievals: 3
+  similarity_threshold: 0.15
+  ngram_range: [1, 3]
+
+privacy_and_security:
+  air_gapped_mode: true
+  allow_external_network: false
+  audit_hash_algorithm: "SHA-256"
+  sanitize_proprietary_identifiers: false
+  generate_provenance_watermark: true
+
+rules_enabled:
+  misra_c_2012: true
+  cert_c_security: true
+  iso_26262_asil: true
