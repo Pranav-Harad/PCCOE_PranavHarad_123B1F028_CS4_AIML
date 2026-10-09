@@ -1,5 +1,6 @@
 /**
  * AUTOSAFE-REVIEW: ENTERPRISE AUTOMOTIVE COCKPIT JAVASCRIPT
+ * Standardized Developer Tool Logic (No Emojis, Pure SVG Icons, Enterprise Style)
  * Candidate: Pranav Ravindra Harad | PRN: 123B1F028 | PCCOE Pune
  */
 
@@ -46,6 +47,7 @@ function setupEventListeners() {
 async function loadModule(filename) {
     currentModule = filename;
     document.getElementById("active-file-title").innerText = filename;
+    document.getElementById("active-breadcrumb-target").innerText = filename;
     
     try {
         const resp = await fetch(`/api/sample/${filename}`);
@@ -58,7 +60,6 @@ async function loadModule(filename) {
         document.getElementById("gcc-text-view").innerText = currentGccLog;
         document.getElementById("sarif-text-view").innerText = currentSarifLog;
 
-        // Reset findings view until run button is clicked
         clearFindingsView();
     } catch (err) {
         showToast("Error loading module source files", "error");
@@ -73,13 +74,13 @@ function renderCodeViewer(code, highlightLines = []) {
     lines.forEach((lineText, idx) => {
         const lineNum = idx + 1;
         const lineDiv = document.createElement("div");
-        lineDiv.className = "code-line";
+        lineDiv.className = "code-row";
         if (highlightLines.includes(lineNum)) {
-            lineDiv.classList.add("has-error");
+            lineDiv.classList.add("highlight-err");
         }
         lineDiv.innerHTML = `
-            <span class="line-num">${lineNum}</span>
-            <span class="line-text">${escapeHtml(lineText)}</span>
+            <span class="line-number">${lineNum}</span>
+            <span class="code-text">${escapeHtml(lineText)}</span>
         `;
         container.appendChild(lineDiv);
     });
@@ -94,7 +95,12 @@ function switchTab(tabName) {
 async function runAnalysis() {
     const btn = document.getElementById("btn-run-review");
     const originalText = btn.innerHTML;
-    btn.innerHTML = `<span class="pulse-dot"></span> Analyzing AST & Rules...`;
+    btn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;">
+            <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/>
+        </svg>
+        <span>Analyzing C-AST & Rules...</span>
+    `;
     btn.disabled = true;
 
     try {
@@ -126,9 +132,9 @@ async function runAnalysis() {
         // Render Finding Cards
         renderFindingsList(currentFindings);
 
-        showToast(`Review complete! Identified ${data.total_findings} grounded findings.`, "success");
+        showToast(`Analysis completed. ${data.total_findings} findings detected.`, "success");
     } catch (err) {
-        showToast("Error during automotive code review", "error");
+        showToast("Error during static code analysis", "error");
     } finally {
         btn.innerHTML = originalText;
         btn.disabled = false;
@@ -144,18 +150,18 @@ function renderFindingsList(findings) {
         : findings.filter(f => f.severity.toUpperCase() === activeSeverityFilter);
 
     if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 40px;">No findings matching current filter.</div>`;
+        container.innerHTML = `<div style="text-align: center; color: var(--text-subtle); padding: 40px; font-size: 12px;">No findings matching current severity filter.</div>`;
         return;
     }
 
-    filtered.forEach((f, idx) => {
+    filtered.forEach((f) => {
         const sevClass = f.severity === "Mandatory" || f.severity === "Critical" 
             ? "sev-mandatory" 
             : (f.severity === "Required" || f.severity === "High" ? "sev-required" : "sev-advisory");
         
         const badgeClass = f.severity === "Mandatory" || f.severity === "Critical"
-            ? "badge-mandatory"
-            : (f.severity === "Required" || f.severity === "High" ? "badge-required" : "badge-advisory");
+            ? "mandatory" 
+            : (f.severity === "Required" || f.severity === "High" ? "required" : "advisory");
 
         const card = document.createElement("div");
         card.className = `finding-card ${sevClass}`;
@@ -163,39 +169,60 @@ function renderFindingsList(findings) {
 
         // Format Diff
         const diffLines = f.suggested_fix.split("\n").map(l => {
-            if (l.startsWith("-")) return `<span class="diff-del">${escapeHtml(l)}</span>`;
-            if (l.startsWith("+")) return `<span class="diff-add">${escapeHtml(l)}</span>`;
+            if (l.startsWith("-")) return `<span class="diff-line-del">${escapeHtml(l)}</span>`;
+            if (l.startsWith("+")) return `<span class="diff-line-add">${escapeHtml(l)}</span>`;
             return `<span>${escapeHtml(l)}</span>`;
         }).join("");
 
         card.innerHTML = `
-            <div class="finding-top">
+            <div class="finding-card-header">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="badge ${badgeClass}">${f.severity}</span>
-                    <strong style="color: var(--accent-cyan); font-size: 13px;">${f.citation}</strong>
-                    <span style="color: var(--text-muted); font-size: 12px;">• Line ${f.line}</span>
+                    <span class="badge-tag ${badgeClass}">${f.severity}</span>
+                    <strong style="color: #60a5fa; font-size: 12px;">${f.citation}</strong>
                 </div>
-                <div style="font-size: 11.5px; color: var(--text-muted);">
-                    Confidence: <strong style="color: #fff;">${(f.confidence * 100).toFixed(1)}%</strong>
-                </div>
+                <span class="finding-location">L${f.line}</span>
             </div>
 
-            <div class="finding-title">${escapeHtml(f.code_snippet)}</div>
-            <div class="finding-desc">${escapeHtml(f.root_cause)}</div>
+            <div class="finding-rule-name">${escapeHtml(f.code_snippet)}</div>
+            <div class="finding-desc-text">${escapeHtml(f.root_cause)}</div>
 
-            <div class="hazard-box">
-                <strong>⚠️ ISO 26262 ASIL Safety Impact:</strong> ${escapeHtml(f.safety_impact)}
+            <div class="safety-consequence-alert">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <div><strong>ISO 26262 ASIL Impact:</strong> ${escapeHtml(f.safety_impact)}</div>
             </div>
 
-            <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase;">
-                Recommended Compliant Unified Diff:
+            <div style="font-size: 10.5px; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">
+                Compliant Remediation Diff:
             </div>
-            <div class="diff-container">${diffLines}</div>
+            <div class="diff-preview-box">${diffLines}</div>
 
-            <div class="finding-actions">
-                <button class="btn-accept" onclick="acceptFix('${f.finding_id}')">✅ Accept Fix</button>
-                <button class="btn-reject" onclick="rejectFix('${f.finding_id}')">❌ Reject</button>
-                <button class="btn-deviation" onclick="openDeviationModal('${f.finding_id}')">📝 Request MISRA Deviation</button>
+            <div class="card-actions-bar">
+                <button class="btn-action accept" onclick="acceptFix('${f.finding_id}')">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Accept Remediation</span>
+                </button>
+
+                <button class="btn-action reject" onclick="rejectFix('${f.finding_id}')">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                    <span>Dismiss</span>
+                </button>
+
+                <button class="btn-action permit" onclick="openDeviationModal('${f.finding_id}')">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span>Request Deviation</span>
+                </button>
             </div>
         `;
 
@@ -214,19 +241,19 @@ function filterSeverity(sev) {
 function acceptFix(findingId) {
     const card = document.getElementById(`card-${findingId}`);
     if (card) {
-        card.style.opacity = "0.7";
-        card.style.borderColor = "var(--accent-emerald)";
+        card.style.opacity = "0.6";
+        card.style.borderLeftColor = "#10b981";
     }
-    showToast(`Finding ${findingId}: Fix Accepted & Staged for Verification Build.`, "success");
+    showToast(`Remediation accepted for ${findingId}. Staged for build verification.`, "success");
 }
 
 function rejectFix(findingId) {
     const card = document.getElementById(`card-${findingId}`);
     if (card) {
         card.style.opacity = "0.5";
-        card.style.borderColor = "var(--accent-crimson)";
+        card.style.borderLeftColor = "#6b7280";
     }
-    showToast(`Finding ${findingId}: Rejected by Engineer.`, "info");
+    showToast(`Finding ${findingId} dismissed by reviewer.`, "info");
 }
 
 function openDeviationModal(findingId) {
@@ -236,10 +263,12 @@ function openDeviationModal(findingId) {
     document.getElementById("dev-finding-id").value = finding.finding_id;
     document.getElementById("dev-rule-id").value = finding.rule_id;
     document.getElementById("dev-file-name").value = finding.file;
-    document.getElementById("dev-line-num").value = finding.line;
-    document.getElementById("dev-rationale").value = `Direct hardware access required for ECU micro-timer performance in ${finding.file}.`;
-    document.getElementById("dev-mitigation").value = `Protected via memory protection unit (MPU) boundary and hardware watchdog alive-monitoring.`;
-    document.getElementById("dev-output-container").style.display = "none";
+    document.getElementById("dev-line-num").value = `Line ${finding.line}`;
+    document.getElementById("dev-rationale").value = `Microcontroller hardware timing constraint requires inline access in ${finding.file}.`;
+    document.getElementById("dev-mitigation").value = `Enforced via memory protection unit (MPU) boundaries and hardware watchdog alive-monitoring.`;
+    
+    const outputContainer = document.getElementById("dev-output-container");
+    outputContainer.style.display = "none";
 
     document.getElementById("deviation-modal").style.display = "flex";
 }
@@ -267,10 +296,10 @@ async function submitDeviation() {
         const data = await resp.json();
         
         document.getElementById("dev-permit-text").value = data.permit;
-        document.getElementById("dev-output-container").style.display = "block";
-        showToast("Signed MISRA Deviation Permit generated successfully!", "success");
+        document.getElementById("dev-output-container").style.display = "flex";
+        showToast("Signed MISRA Deviation Record generated successfully.", "success");
     } catch (err) {
-        showToast("Error generating deviation permit", "error");
+        showToast("Error generating deviation record", "error");
     }
 }
 
@@ -280,13 +309,13 @@ function downloadPermitFile() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `MISRA_Deviation_Permit_${currentModule}.txt`;
+    a.download = `MISRA_Deviation_${currentModule}.txt`;
     a.click();
 }
 
 async function exportSARIF() {
     if (currentFindings.length === 0) {
-        showToast("Please run review first before exporting", "info");
+        showToast("Please run static analysis prior to exporting", "info");
         return;
     }
     const resp = await fetch("/api/export/sarif", {
@@ -295,12 +324,12 @@ async function exportSARIF() {
         body: JSON.stringify({ findings: currentFindings })
     });
     const blob = await resp.blob();
-    downloadBlob(blob, `${currentModule}_audit.sarif`);
+    downloadBlob(blob, `${currentModule}_findings.sarif`);
 }
 
 async function exportCSV() {
     if (currentFindings.length === 0) {
-        showToast("Please run review first before exporting", "info");
+        showToast("Please run static analysis prior to exporting", "info");
         return;
     }
     const resp = await fetch("/api/export/csv", {
@@ -314,7 +343,7 @@ async function exportCSV() {
 
 async function exportMarkdown() {
     if (currentFindings.length === 0) {
-        showToast("Please run review first before exporting", "info");
+        showToast("Please run static analysis prior to exporting", "info");
         return;
     }
     const resp = await fetch("/api/export/markdown", {
@@ -341,15 +370,14 @@ function downloadBlob(blob, filename) {
     a.href = url;
     a.download = filename;
     a.click();
-    showToast(`Downloaded ${filename}`, "success");
+    showToast(`Exported ${filename}`, "success");
 }
 
 function clearFindingsView() {
     document.getElementById("findings-container").innerHTML = `
-        <div style="text-align: center; color: var(--text-muted); padding: 60px 20px;">
-            <div style="font-size: 32px; margin-bottom: 12px;">🛡️</div>
-            <div style="font-size: 15px; font-weight: 600; color: var(--text-secondary);">Automotive Diagnostic Core Ready</div>
-            <div style="font-size: 13px; margin-top: 6px;">Click 'Run Multi-Modal Review' to analyze AST, compiler logs, and MISRA/CERT rules.</div>
+        <div style="text-align: center; color: var(--text-subtle); padding: 50px 16px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-muted);">Ready for Analysis</div>
+            <div style="font-size: 11.5px; margin-top: 4px;">Select an ECU module and click 'Run Static Analysis & Review' to inspect against MISRA and CERT standards.</div>
         </div>
     `;
     document.getElementById("kpi-total-val").innerText = "--";
@@ -362,13 +390,20 @@ function clearFindingsView() {
 function showToast(msg, type = "success") {
     const container = document.getElementById("toast-container");
     const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.style.borderLeftColor = type === "error" ? "var(--accent-crimson)" : (type === "info" ? "var(--accent-cyan)" : "var(--accent-emerald)");
-    toast.innerHTML = `<span>${type === 'error' ? '❌' : (type === 'info' ? 'ℹ️' : '✅')}</span> <span>${escapeHtml(msg)}</span>`;
+    toast.className = `toast-item ${type}`;
+    
+    let iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+    if (type === "error") {
+        iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+    } else if (type === "info") {
+        iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`;
+    }
+
+    toast.innerHTML = `<span>${iconSvg}</span> <span>${escapeHtml(msg)}</span>`;
     container.appendChild(toast);
     setTimeout(() => {
         toast.remove();
-    }, 3500);
+    }, 3200);
 }
 
 function escapeHtml(str) {
