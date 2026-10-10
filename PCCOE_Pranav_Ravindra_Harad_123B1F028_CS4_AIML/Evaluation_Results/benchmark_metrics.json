@@ -11,7 +11,7 @@
   "citation_accuracy": 0.92,
   "faithfulness": 1.0,
   "hallucination_rate": 0.0,
-  "mean_latency_ms": 0.76,
+  "mean_latency_ms": 0.69,
   "test_results": [
     {
       "test_id": "TC-01",
@@ -19,7 +19,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-12.1",
       "detected_rule": "MISRA-C-2012-Rule-12.1",
       "citation_accurate": true,
-      "latency_ms": 2.43,
+      "latency_ms": 2.3,
       "status": "PASS"
     },
     {
@@ -28,7 +28,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
       "detected_rule": "MISRA-C-2012-Rule-21.3",
       "citation_accurate": true,
-      "latency_ms": 0.74,
+      "latency_ms": 0.72,
       "status": "PASS"
     },
     {
@@ -37,7 +37,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-16.4",
       "detected_rule": "MISRA-C-2012-Rule-16.4",
       "citation_accurate": true,
-      "latency_ms": 0.65,
+      "latency_ms": 0.63,
       "status": "PASS"
     },
     {
@@ -46,7 +46,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
       "detected_rule": "MISRA-C-2012-Rule-17.7",
       "citation_accurate": true,
-      "latency_ms": 0.61,
+      "latency_ms": 0.79,
       "status": "PASS"
     },
     {
@@ -55,7 +55,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-9.1",
       "detected_rule": "MISRA-C-2012-Rule-9.1",
       "citation_accurate": true,
-      "latency_ms": 0.65,
+      "latency_ms": 0.79,
       "status": "PASS"
     },
     {
@@ -64,7 +64,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-11.4",
       "detected_rule": "MISRA-C-2012-Rule-11.4",
       "citation_accurate": true,
-      "latency_ms": 0.6,
+      "latency_ms": 0.64,
       "status": "PASS"
     },
     {
@@ -73,7 +73,7 @@
       "ground_truth_rule": "CERT-C-CON33-C",
       "detected_rule": "CERT-C-CON33-C",
       "citation_accurate": true,
-      "latency_ms": 0.89,
+      "latency_ms": 0.62,
       "status": "PASS"
     },
     {
@@ -82,7 +82,7 @@
       "ground_truth_rule": "CERT-C-ARR30-C",
       "detected_rule": "MISRA-C-2012-Rule-18.1",
       "citation_accurate": false,
-      "latency_ms": 0.9,
+      "latency_ms": 0.53,
       "status": "PASS"
     },
     {
@@ -91,7 +91,7 @@
       "ground_truth_rule": "CERT-C-EXP34-C",
       "detected_rule": "CERT-C-EXP34-C",
       "citation_accurate": true,
-      "latency_ms": 0.77,
+      "latency_ms": 0.57,
       "status": "PASS"
     },
     {
@@ -100,7 +100,7 @@
       "ground_truth_rule": "CERT-C-INT31-C",
       "detected_rule": "MISRA-C-2012-Rule-9.1",
       "citation_accurate": false,
-      "latency_ms": 0.65,
+      "latency_ms": 0.54,
       "status": "PASS"
     },
     {
@@ -109,7 +109,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
       "detected_rule": "MISRA-C-2012-Rule-17.7",
       "citation_accurate": true,
-      "latency_ms": 0.59,
+      "latency_ms": 0.53,
       "status": "PASS"
     },
     {
@@ -118,7 +118,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-16.4",
       "detected_rule": "MISRA-C-2012-Rule-16.4",
       "citation_accurate": true,
-      "latency_ms": 0.67,
+      "latency_ms": 0.61,
       "status": "PASS"
     },
     {
@@ -127,7 +127,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
       "detected_rule": "MISRA-C-2012-Rule-21.3",
       "citation_accurate": true,
-      "latency_ms": 0.58,
+      "latency_ms": 0.57,
       "status": "PASS"
     },
     {
@@ -145,7 +145,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-9.1",
       "detected_rule": "MISRA-C-2012-Rule-9.1",
       "citation_accurate": true,
-      "latency_ms": 0.75,
+      "latency_ms": 0.77,
       "status": "PASS"
     },
     {
@@ -154,7 +154,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-11.4",
       "detected_rule": "MISRA-C-2012-Rule-11.4",
       "citation_accurate": true,
-      "latency_ms": 0.57,
+      "latency_ms": 0.6,
       "status": "PASS"
     },
     {
@@ -163,7 +163,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
       "detected_rule": "MISRA-C-2012-Rule-21.3",
       "citation_accurate": true,
-      "latency_ms": 0.86,
+      "latency_ms": 0.53,
       "status": "PASS"
     },
     {
@@ -172,7 +172,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
       "detected_rule": "MISRA-C-2012-Rule-17.7",
       "citation_accurate": true,
-      "latency_ms": 0.93,
+      "latency_ms": 0.54,
       "status": "PASS"
     },
     {
@@ -181,7 +181,7 @@
       "ground_truth_rule": "CERT-C-CON33-C",
       "detected_rule": "CERT-C-CON33-C",
       "citation_accurate": true,
-      "latency_ms": 0.86,
+      "latency_ms": 0.65,
       "status": "PASS"
     },
     {
@@ -190,7 +190,7 @@
       "ground_truth_rule": "CERT-C-EXP34-C",
       "detected_rule": "CERT-C-EXP34-C",
       "citation_accurate": true,
-      "latency_ms": 0.77,
+      "latency_ms": 0.53,
       "status": "PASS"
     },
     {
@@ -199,7 +199,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-16.4",
       "detected_rule": "MISRA-C-2012-Rule-16.4",
       "citation_accurate": true,
-      "latency_ms": 0.64,
+      "latency_ms": 0.54,
       "status": "PASS"
     },
     {
@@ -208,7 +208,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-9.1",
       "detected_rule": "MISRA-C-2012-Rule-9.1",
       "citation_accurate": true,
-      "latency_ms": 0.71,
+      "latency_ms": 0.66,
       "status": "PASS"
     },
     {
@@ -217,7 +217,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-21.3",
       "detected_rule": "MISRA-C-2012-Rule-21.3",
       "citation_accurate": true,
-      "latency_ms": 0.59,
+      "latency_ms": 0.64,
       "status": "PASS"
     },
     {
@@ -226,7 +226,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-17.7",
       "detected_rule": "MISRA-C-2012-Rule-17.7",
       "citation_accurate": true,
-      "latency_ms": 0.55,
+      "latency_ms": 0.63,
       "status": "PASS"
     },
     {
@@ -235,7 +235,7 @@
       "ground_truth_rule": "MISRA-C-2012-Rule-12.1",
       "detected_rule": "MISRA-C-2012-Rule-12.1",
       "citation_accurate": true,
-      "latency_ms": 0.58,
+      "latency_ms": 0.64,
       "status": "PASS"
     }
   ]

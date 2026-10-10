@@ -1,0 +1,12 @@
+# AutoSafe-Review: Requirements
+# Tata Technologies TechPulse FY-26 | AI/ML Capstone Project | Case Study 4
+# Student: Pranav Ravindra Harad | PRN: 123B1F028 | PCCOE, Pune
+
+flask>=2.2.0
+streamlit>=1.25.0
+reportlab>=3.6.0
+matplotlib>=3.5.0
+numpy>=1.21.0
+scikit-learn>=1.0.0
+pandas>=1.3.0
+pyyaml>=6.0

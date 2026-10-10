@@ -1,0 +1,9 @@
+# AutoSafe-Review: Requirements
+flask>=2.2.0
+streamlit>=1.25.0
+reportlab>=3.6.0
+matplotlib>=3.5.0
+numpy>=1.21.0
+scikit-learn>=1.0.0
+pandas>=1.3.0
+pyyaml>=6.0

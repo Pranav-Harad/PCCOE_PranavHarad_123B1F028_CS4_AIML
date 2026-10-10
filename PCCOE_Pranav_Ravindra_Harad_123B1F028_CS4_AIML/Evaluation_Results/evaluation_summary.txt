@@ -10,5 +10,5 @@ F1-Score:            100.00%
 Citation Hit Rate:   92.00%
 Faithfulness:        100.00%
 Hallucination Rate:  0.00% (Strict Knowledge Base Grounding)
-Mean Latency:        0.76 ms
+Mean Latency:        0.69 ms
 =================================================================
