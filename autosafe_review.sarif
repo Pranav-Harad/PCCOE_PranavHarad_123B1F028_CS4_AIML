@@ -1,0 +1,251 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "AutoSafe-Review Air-Gapped Assistant",
+          "organization": "PCCOE & Tata Technologies TechPulse",
+          "semanticVersion": "1.0.0",
+          "rules": [
+            {
+              "id": "MISRA-C-2012-Rule-16.4",
+              "name": "MISRA C:2012",
+              "shortDescription": {
+                "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-16.4 ('Every switch statement shall have a default label'). Defensive progra"
+              },
+              "fullDescription": {
+                "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-16.4 ('Every switch statement shall have a default label'). Defensive programming in ISO 26262 requires handling unexpected states caused by electromagnetic interference (EMI), memory bit-flips, or unhandled enum states in state machines."
+              },
+              "help": {
+                "text": "Safety Impact: ASIL-B to ASIL-D (State machine desynchronization; failure to handle corrupt state variable).\nRemediation:\n  switch (g_bms_pack.state) {\n      /* ... existing cases ... */\n+     default:\n+         g_bms_pack.state = BMS_STATE_FAULT;\n+         g_bms_pack.contactor_open_req = true;\n+         Dem_ReportErrorStatus(BMS_STATE_INVALID, DEM_EVENT_STATUS_FAILED);\n+         break;\n  }"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "MISRA-C-2012-Rule-17.7",
+              "name": "MISRA C:2012",
+              "shortDescription": {
+                "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-17.7 ('The value returned by a function having non-void return type shall be"
+              },
+              "fullDescription": {
+                "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-17.7 ('The value returned by a function having non-void return type shall be used'). In ECU device drivers (CAN transceivers, SPI Flash, ADC converters), functions return status codes indicating hardware bus timeouts, parity errors, or buffer overflows. Ignoring return values leads to silent system failure."
+              },
+              "help": {
+                "text": "Safety Impact: ASIL-C / ASIL-D (Ignoring hardware bus faults leads to undetected failure modes violating functional safety targets).\nRemediation:\n- Can_TransmitFrame(0x18F00100U, status_pdu, 8U);\n+ Std_ReturnType tx_status = Can_TransmitFrame(0x18F00100U, status_pdu, 8U);\n+ if (tx_status != E_OK) {\n+     Dem_ReportErrorStatus(CAN_TX_FAIL, DEM_EVENT_STATUS_FAILED);\n+ }"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "CERT-C-ARR30-C",
+              "name": "SEI CERT C",
+              "shortDescription": {
+                "text": "Violation of SEI CERT C CERT-C-ARR30-C ('Do not form or use out-of-bounds pointers or array subscripts'). In ECU communi"
+              },
+              "fullDescription": {
+                "text": "Violation of SEI CERT C CERT-C-ARR30-C ('Do not form or use out-of-bounds pointers or array subscripts'). In ECU communication gateways (UDS diagnostic services, CAN-FD message parsers), malicious or malformed packets from OBD-II ports can trigger out-of-bounds buffer writes, overwriting critical control parameters or RTOS return addresses. Corroborated by embedded compiler diagnostic: 'SARIF [cert-arr30-c]: Array subscript 'cell_index' is not validated against upper boundary 'BMS_MAX_CELLS' (96)'."
+              },
+              "help": {
+                "text": "Safety Impact: ISO 21434 Cybersecurity Threat Level: Critical / ASIL-D.\nRemediation:\n+ if (cell_index < BMS_MAX_CELLS) {\n      g_bms_pack.cell_voltages[cell_index] = voltage_mv;\n+ } else {\n+     Dem_ReportErrorStatus(BMS_INDEX_OUT_OF_BOUNDS, DEM_EVENT_STATUS_FAILED);\n+ }"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "MISRA-C-2012-Rule-12.1",
+              "name": "MISRA C:2012",
+              "shortDescription": {
+                "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-12.1 ('The precedence of operators within expressions should be made explici"
+              },
+              "fullDescription": {
+                "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-12.1 ('The precedence of operators within expressions should be made explicit'). In ECU communication protocols (e.g., CAN, LIN, FlexRay), frame deserialization combines bitwise shifts (<<, >>) and bitwise OR (|). Without explicit parentheses, operator precedence misunderstanding can cause critical signal misinterpretation (e.g., throttle angle or battery cell voltage)."
+              },
+              "help": {
+                "text": "Safety Impact: ASIL-B to ASIL-D (Corrupted sensor signal decoding causing unintended acceleration or false BMS emergency contactor trip).\nRemediation:\n- uint16_t decoded_voltage = payload[1] << 8 | payload[2];\n+ uint16_t decoded_voltage = ((uint16_t)payload[1] << 8U) | (uint16_t)payload[2];"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "MISRA-C-2012-Rule-16.4",
+          "message": {
+            "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-16.4 ('Every switch statement shall have a default label'). Defensive programming in ISO 26262 requires handling unexpected states caused by electromagnetic interference (EMI), memory bit-flips, or unhandled enum states in state machines."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.98,
+            "safety_impact": "ASIL-B to ASIL-D (State machine desynchronization; failure to handle corrupt state variable).",
+            "citation": "MISRA-C-2012-Rule-16.4 (MISRA C:2012, Required)"
+          }
+        },
+        {
+          "ruleId": "MISRA-C-2012-Rule-17.7",
+          "message": {
+            "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-17.7 ('The value returned by a function having non-void return type shall be used'). In ECU device drivers (CAN transceivers, SPI Flash, ADC converters), functions return status codes indicating hardware bus timeouts, parity errors, or buffer overflows. Ignoring return values leads to silent system failure."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.98,
+            "safety_impact": "ASIL-C / ASIL-D (Ignoring hardware bus faults leads to undetected failure modes violating functional safety targets).",
+            "citation": "MISRA-C-2012-Rule-17.7 (MISRA C:2012, Required)"
+          }
+        },
+        {
+          "ruleId": "MISRA-C-2012-Rule-16.4",
+          "message": {
+            "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-16.4 ('Every switch statement shall have a default label'). Defensive programming in ISO 26262 requires handling unexpected states caused by electromagnetic interference (EMI), memory bit-flips, or unhandled enum states in state machines. Corroborated by embedded compiler diagnostic: '-Wswitch: enumeration value 'BmsState_t' not explicitly handled in switch without default'."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.98,
+            "safety_impact": "ASIL-B to ASIL-D (State machine desynchronization; failure to handle corrupt state variable).",
+            "citation": "MISRA-C-2012-Rule-16.4 (MISRA C:2012, Required)"
+          }
+        },
+        {
+          "ruleId": "MISRA-C-2012-Rule-17.7",
+          "message": {
+            "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-17.7 ('The value returned by a function having non-void return type shall be used'). In ECU device drivers (CAN transceivers, SPI Flash, ADC converters), functions return status codes indicating hardware bus timeouts, parity errors, or buffer overflows. Ignoring return values leads to silent system failure. Corroborated by embedded compiler diagnostic: '-Wunused-result: ignoring return value of 'Can_TransmitFrame', declared with attribute warn_unused_result'."
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.98,
+            "safety_impact": "ASIL-C / ASIL-D (Ignoring hardware bus faults leads to undetected failure modes violating functional safety targets).",
+            "citation": "MISRA-C-2012-Rule-17.7 (MISRA C:2012, Required)"
+          }
+        },
+        {
+          "ruleId": "CERT-C-ARR30-C",
+          "message": {
+            "text": "Violation of SEI CERT C CERT-C-ARR30-C ('Do not form or use out-of-bounds pointers or array subscripts'). In ECU communication gateways (UDS diagnostic services, CAN-FD message parsers), malicious or malformed packets from OBD-II ports can trigger out-of-bounds buffer writes, overwriting critical control parameters or RTOS return addresses. Corroborated by embedded compiler diagnostic: 'SARIF [cert-arr30-c]: Array subscript 'cell_index' is not validated against upper boundary 'BMS_MAX_CELLS' (96)'."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.98,
+            "safety_impact": "ISO 21434 Cybersecurity Threat Level: Critical / ASIL-D.",
+            "citation": "CERT-C-ARR30-C (SEI CERT C, High)"
+          }
+        },
+        {
+          "ruleId": "MISRA-C-2012-Rule-12.1",
+          "message": {
+            "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-12.1 ('The precedence of operators within expressions should be made explicit'). In ECU communication protocols (e.g., CAN, LIN, FlexRay), frame deserialization combines bitwise shifts (<<, >>) and bitwise OR (|). Without explicit parentheses, operator precedence misunderstanding can cause critical signal misinterpretation (e.g., throttle angle or battery cell voltage)."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.98,
+            "safety_impact": "ASIL-B to ASIL-D (Corrupted sensor signal decoding causing unintended acceleration or false BMS emergency contactor trip).",
+            "citation": "MISRA-C-2012-Rule-12.1 (MISRA C:2012, Advisory)"
+          }
+        },
+        {
+          "ruleId": "MISRA-C-2012-Rule-12.1",
+          "message": {
+            "text": "Violation of MISRA C:2012 MISRA-C-2012-Rule-12.1 ('The precedence of operators within expressions should be made explicit'). In ECU communication protocols (e.g., CAN, LIN, FlexRay), frame deserialization combines bitwise shifts (<<, >>) and bitwise OR (|). Without explicit parentheses, operator precedence misunderstanding can cause critical signal misinterpretation (e.g., throttle angle or battery cell voltage). Corroborated by embedded compiler diagnostic: '-Wparentheses: suggest parentheses around '+' inside '<<''."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "bms_cell_monitor.c"
+                },
+                "region": {
+                  "startLine": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.98,
+            "safety_impact": "ASIL-B to ASIL-D (Corrupted sensor signal decoding causing unintended acceleration or false BMS emergency contactor trip).",
+            "citation": "MISRA-C-2012-Rule-12.1 (MISRA C:2012, Advisory)"
+          }
+        }
+      ]
+    }
+  ]
+}
