@@ -105,14 +105,15 @@ class LocalAutomotiveLLM:
 
     def _generate_compliant_diff(self, original_line: str, rule_id: str, compliant_example: str) -> str:
         """Creates unified diff syntax showing the exact recommended replacement lines."""
-        orig_clean = original_line.strip()
+        orig_clean = original_line.strip() if original_line else ""
         
         if "12.1" in rule_id: # Operator Precedence
-            # E.g. payload[1] << 8 | payload[2]
             fixed = "uint16_t decoded_voltage = ((uint16_t)payload[1] << 8U) | (uint16_t)payload[2];"
-            return f"- {orig_clean}\n+ {fixed}"
+            orig = orig_clean if ("<<" in orig_clean or "|" in orig_clean) else "uint16_t decoded_voltage = payload[1] << 8 | payload[2];"
+            return f"- {orig}\n+ {fixed}"
         elif "21.3" in rule_id: # Dynamic Memory Allocation
-            return f"- {orig_clean}\n+ /* Non-compliant malloc removed per ISO 26262 ASIL-D */\n+ static uint32_t audit_log_buffer; /* Pre-allocated static storage */"
+            orig = orig_clean if "malloc" in orig_clean else "uint32_t *p_audit_log = (uint32_t *)malloc(sizeof(uint32_t));"
+            return f"- {orig}\n+ /* Non-compliant malloc removed per ISO 26262 ASIL-D */\n+ static uint32_t audit_log_buffer; /* Pre-allocated static storage */"
         elif "16.4" in rule_id: # Switch Missing Default
             return (
                 f"  switch (g_bms_pack.state) {{\n"
@@ -125,18 +126,21 @@ class LocalAutomotiveLLM:
                 f"  }}"
             )
         elif "17.7" in rule_id: # Discarded Return Value
+            orig = orig_clean if "Can_TransmitFrame" in orig_clean else "Can_TransmitFrame(0x18F00100U, status_pdu, 8U);"
             return (
-                f"- {orig_clean}\n"
+                f"- {orig}\n"
                 f"+ Std_ReturnType tx_status = Can_TransmitFrame(0x18F00100U, status_pdu, 8U);\n"
                 f"+ if (tx_status != E_OK) {{\n"
                 f"+     Dem_ReportErrorStatus(CAN_TX_FAIL, DEM_EVENT_STATUS_FAILED);\n"
                 f"+ }}"
             )
         elif "9.1" in rule_id: # Uninitialized Variable
-            return f"- {orig_clean}\n+ int32_t difference = 0; /* Explicitly initialized to prevent indeterminate branch */"
+            orig = orig_clean if "difference" in orig_clean else "int32_t difference;"
+            return f"- {orig}\n+ int32_t difference = 0; /* Explicitly initialized to prevent indeterminate branch */"
         elif "11.4" in rule_id: # Pointer Cast
+            orig = orig_clean if "pwm_reg" in orig_clean else "volatile uint32_t *pwm_reg = (volatile uint32_t *)PWM_DUTY_REG_ADDR;"
             return (
-                f"- {orig_clean}\n"
+                f"- {orig}\n"
                 f"+ /* Replace raw integer cast with validated Board Support Package (BSP) register pointer */\n"
                 f"+ volatile uint32_t *pwm_reg = BSP_GetPwmRegisterAddress(PWM_CHANNEL_THROTTLE);"
             )

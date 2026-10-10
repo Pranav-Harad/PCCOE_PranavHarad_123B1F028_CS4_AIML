@@ -1,27 +1,27 @@
 [BUILD] arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -Wall -Wextra -Wconversion -Wparentheses -Wuninitialized -c bms_cell_monitor.c -o build/bms_cell_monitor.o
 bms_cell_monitor.c: In function 'Bms_ProcessCanPayload':
-bms_cell_monitor.c:28:38: warning: suggest parentheses around '+' inside '<<' [-Wparentheses]
-   28 |         uint16_t decoded_voltage = payload[1] << 8 | payload[2];
+bms_cell_monitor.c:30:38: warning: suggest parentheses around '+' inside '<<' [-Wparentheses]
+   30 |         uint16_t decoded_voltage = payload[1] << 8 | payload[2];
       |                                    ~~~~~~~~~~~^~~~
 bms_cell_monitor.c: In function 'Bms_StepStateMachine':
-bms_cell_monitor.c:51:5: warning: enumeration value 'BmsState_t' not explicitly handled in switch without default [-Wswitch]
-   51 |     switch (g_bms_pack.state) {
+bms_cell_monitor.c:60:5: warning: enumeration value 'BmsState_t' not explicitly handled in switch without default [-Wswitch]
+   60 |     switch (g_bms_pack.state) {
       |     ^~~~~~
-bms_cell_monitor.c:73:5: warning: ignoring return value of 'Can_TransmitFrame', declared with attribute warn_unused_result [-Wunused-result]
-   73 |     Can_TransmitFrame(0x18F00100U, status_pdu, 8U);
+bms_cell_monitor.c:82:5: warning: ignoring return value of 'Can_TransmitFrame', declared with attribute warn_unused_result [-Wunused-result]
+   82 |     Can_TransmitFrame(0x18F00100U, status_pdu, 8U);
       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 [BUILD] arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -Wall -Wextra -Wconversion -Wuninitialized -c throttle_actuator_driver.c -o build/throttle_actuator_driver.o
 throttle_actuator_driver.c: In function 'Throttle_CheckPlausibility':
-throttle_actuator_driver.c:38:9: warning: 'difference' may be used uninitialized in this function [-Wmaybe-uninitialized]
-   38 |     if (difference > 150) {
+throttle_actuator_driver.c:40:9: warning: 'difference' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   40 |     if (difference > 150) {
       |         ^~~~~~~~~~
 throttle_actuator_driver.c: In function 'Throttle_SetActuatorPwm':
-throttle_actuator_driver.c:57:37: warning: conversion from 'uint32_t' {aka 'long unsigned int'} to 'uint8_t' {aka 'unsigned char'} may change value [-Wconversion]
-   57 |     g_throttle.duty_cycle_applied = (uint8_t)calculated_duty;
+throttle_actuator_driver.c:65:37: warning: conversion from 'uint32_t' {aka 'long unsigned int'} to 'uint8_t' {aka 'unsigned char'} may change value [-Wconversion]
+   65 |     g_throttle.duty_cycle_applied = (uint8_t)calculated_duty;
       |                                     ^~~~~~~~~~~~~~~~~~~~~~~~
-throttle_actuator_driver.c:60:34: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
-   60 |     volatile uint32_t *pwm_reg = (volatile uint32_t *)PWM_DUTY_REG_ADDR;
+throttle_actuator_driver.c:68:34: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+   68 |     volatile uint32_t *pwm_reg = (volatile uint32_t *)PWM_DUTY_REG_ADDR;
       |                                  ^
 
 [BUILD] Build finished with 6 warnings, 0 errors. Target: ecu_firmware_asil_c.elf

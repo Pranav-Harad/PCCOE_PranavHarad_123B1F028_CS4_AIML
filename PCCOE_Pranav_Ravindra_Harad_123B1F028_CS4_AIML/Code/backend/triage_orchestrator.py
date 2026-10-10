@@ -57,14 +57,30 @@ class TriageOrchestrator:
 
         # 5. Synthesize and Correlate Findings
         final_findings: List[Dict[str, Any]] = []
-        seen_lines_rules = set()
+        seen_rules = set()
+
+        def clean_snippet(line_idx: int) -> str:
+            if not (1 <= line_idx <= len(parser.lines)):
+                return ""
+            raw = parser.lines[line_idx - 1].strip()
+            # If comment or empty or bare closing brace, look adjacent
+            if not raw or raw.startswith("/*") or raw.startswith("*") or raw.startswith("//") or raw in ("}", "{"):
+                for offset in [1, 2, -1, -2]:
+                    target = line_idx - 1 + offset
+                    if 0 <= target < len(parser.lines):
+                        t_line = parser.lines[target].strip()
+                        if t_line and not t_line.startswith("/*") and not t_line.startswith("*") and not t_line.startswith("//") and t_line not in ("}", "{"):
+                            return t_line
+            return raw
 
         # Process Deterministic Findings with RAG Grounding & LLM synthesis
         for df in det_findings:
-            key = (df["line"], df["rule_id"])
-            if key in seen_lines_rules:
+            rule_id = df["rule_id"]
+            line_no = df["line"]
+            rule_key = rule_id.lower()
+            if rule_key in seen_rules:
                 continue
-            seen_lines_rules.add(key)
+            seen_rules.add(rule_key)
 
             # Query RAG for best matching rule metadata
             rag_hits = self.rag_engine.query(f"{df['rule_id']} {df['message']}", top_k=1)
@@ -79,32 +95,43 @@ class TriageOrchestrator:
                 "compliant_example": df["suggested_fix"]
             }
 
-            # Check if compiler warning exists for this line
-            matching_warning = next((cd["message"] for cd in compiler_diags if cd["line"] == df["line"]), None)
+            # Correlate compiler warning within 3 lines
+            matching_warning = next(
+                (f"{cd['rule_or_flag']}: {cd['message']}" for cd in compiler_diags 
+                 if abs(cd["line"] - line_no) <= 3 or cd["rule_or_flag"].lower() in df["rule_id"].lower()), 
+                None
+            )
 
-            # Synthesize final rich finding
+            # Correlate SARIF diagnostic
+            sarif_match = next(
+                (s["message"] for s in sarif_diags 
+                 if abs(s["line"] - line_no) <= 3 or any(k in s["rule_or_flag"].lower() for k in ("arr30", "21.3", "branch"))),
+                None
+            )
+            if sarif_match and not matching_warning:
+                matching_warning = f"SARIF Analysis: {sarif_match}"
+
+            code_text = clean_snippet(line_no) or df["code_snippet"]
+
             finding = self.local_llm.generate_review_finding(
                 file_name=file_name,
-                line_num=df["line"],
-                code_snippet=df["code_snippet"],
+                line_num=line_no,
+                code_snippet=code_text,
                 rule_info=rule_info,
                 compiler_warning=matching_warning
             )
             final_findings.append(finding)
 
-        # Process standalone compiler warnings not already caught by deterministic checker
+        # Process any unique standalone compiler warnings not yet covered
         for cd in compiler_diags:
             line_num = cd["line"]
-            # Look up snippet
-            code_line = parser.lines[line_num - 1] if 0 <= line_num - 1 < len(parser.lines) else "/* Line offset */"
-            
-            # Query RAG for this compiler warning
             rag_hits = self.rag_engine.query(f"compiler warning {cd['rule_or_flag']} {cd['message']}", top_k=1)
             if rag_hits:
                 rule_info = rag_hits[0]
-                key = (line_num, rule_info["rule_id"])
-                if key not in seen_lines_rules:
-                    seen_lines_rules.add(key)
+                rule_key = rule_info["rule_id"].lower()
+                if rule_key not in seen_rules and not any(abs(f["line"] - line_num) <= 3 for f in final_findings):
+                    seen_rules.add(rule_key)
+                    code_line = clean_snippet(line_num)
                     finding = self.local_llm.generate_review_finding(
                         file_name=file_name,
                         line_num=line_num,
@@ -114,16 +141,16 @@ class TriageOrchestrator:
                     )
                     final_findings.append(finding)
 
-        # Process SARIF diagnostics
+        # Process any unique standalone SARIF diagnostics not yet covered
         for sd in sarif_diags:
             line_num = sd["line"]
-            code_line = parser.lines[line_num - 1] if 0 <= line_num - 1 < len(parser.lines) else "/* SARIF offset */"
             rag_hits = self.rag_engine.query(f"{sd['rule_or_flag']} {sd['message']}", top_k=1)
             if rag_hits:
                 rule_info = rag_hits[0]
-                key = (line_num, rule_info["rule_id"])
-                if key not in seen_lines_rules:
-                    seen_lines_rules.add(key)
+                rule_key = rule_info["rule_id"].lower()
+                if rule_key not in seen_rules and not any(abs(f["line"] - line_num) <= 3 for f in final_findings):
+                    seen_rules.add(rule_key)
+                    code_line = clean_snippet(line_num)
                     finding = self.local_llm.generate_review_finding(
                         file_name=file_name,
                         line_num=line_num,
