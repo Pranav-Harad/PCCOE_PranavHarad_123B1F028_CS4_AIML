@@ -1,13 +1,13 @@
-# SIMPLE & ACCURATE VIDEO DEMONSTRATION SCRIPT
+# SIMPLE & COMPLETE VIDEO DEMONSTRATION SCRIPT
 ## AutoSafe-Review: Automotive ECU Code Review Dashboard
 **Tata Technologies TechPulse FY-26 | Case Study 4**  
 **Candidate:** Pranav Ravindra Harad | **PRN:** 123B1F028 | **College:** PCCOE Pune  
-**Screen Setup:** Full screen on `http://localhost:5000/`  
-**Duration:** Around 5 to 6 minutes  
+**Screen Display:** Browser open at `http://localhost:5000/` in Full Screen  
+**Target Duration:** Around 5 to 6 minutes  
 
 ---
 
-## 🎬 Step-by-Step Speaking Script (Exact Lines & Metrics)
+## 🎬 Word-for-Word Spoken Cue Card
 
 ---
 
@@ -26,7 +26,7 @@
 ---
 
 ### ⏱️ 0:45 – 1:30 | Part 2: ECU Modules & Code Viewer Setup
-* **Action on Screen:** Point mouse to the left sidebar, show the tabs above the code editor, and demonstrate the middle slider.
+* **Action on Screen:** Point mouse to the left sidebar, click the tabs above the code editor, and show the draggable slider.
 * **What to Say & Do:**
 > *(Point mouse to the left sidebar)*  
 > *"On the left sidebar, we have pre-loaded automotive ECU driver modules:  
@@ -86,21 +86,22 @@
 
 ---
 
-### ⏱️ 3:45 – 4:45 | Part 5: Accept Remediation (Line 60 Turns Green) & Interactive State
-* **Action on Screen:** On the top card (Line 60), click **'Accept Remediation'**. Show Line 60 turn green. Show KPI drop from 4 to 3. Switch tabs (Required -> All). Click 'Undo'.
+### ⏱️ 3:45 – 4:45 | Part 5: Accept Remediation (Line 60 Updates Live in Green)
+* **Action on Screen:** On the top card (Line 60), click **'Accept Remediation'**. Show Line 60 turn green and the code text change. Show KPI drop from 4 to 3. Switch tabs (Required -> All). Click 'Undo'.
 * **What to Say & Do:**
 > *(Click 'Accept Remediation' on the Line 60 card)*  
 > *"Now, let's test the interactive remediation workflow.  
 > When the reviewer clicks **'Accept Remediation'**:  
-> 1. Look at **Line 60** in the code editor: it instantly turns from red to **GREEN**! This visually confirms the remediation is staged.  
-> 2. The card updates with a green badge: **'Remediation Approved & Staged for CI/CD Compilation'**.  
-> 3. And look at the top KPI bar: Total Open Violations drops from **4 to 3**, and Required/High drops from **3 to 2**!  
+> 1. Look at **Line 60** in the code editor: it instantly turns from red to **GREEN**!  
+> 2. Even better, notice that the actual code text on Line 60 **physically updates in real-time** to the compliant remediated code!  
+> 3. The card updates with a green badge: **'Remediation Approved & Staged for CI/CD Compilation'**.  
+> 4. And look at the top KPI bar: Total Open Violations drops from **4 to 3**, and Required/High drops from **3 to 2**!  
 > 
 > *(Click 'Required' filter tab, then click back to 'All')*  
 > Even when we switch between the filter tabs—Required, Advisory, and back to All—the accepted status remains permanently preserved.  
 > 
 > *(Click 'Undo' button on that card)*  
-> And if the engineer wants to revert, clicking **'Undo'** immediately restores Line 60 back to red and resets our KPI counter back to 4."*
+> And if the engineer wants to revert, clicking **'Undo'** immediately restores the original red line and code text, and resets our KPI counter back to 4."*
 
 ---
 
@@ -156,15 +157,15 @@
 
 ---
 
-## 🎯 Summary of Key Screen Values to Remember While Recording
-| Element | Exact Value on Screen |
+## 🎯 Quick Reference Cheat Sheet While Recording
+| What Evaluator Sees | Exact Screen Value |
 |---|---|
-| **File Being Reviewed** | `bms_cell_monitor.c` |
-| **Total Open Violations** | **4** (drops to **3** on Accept Remediation) |
-| **Mandatory / Critical** | **0** |
-| **Required / High** | **3** (drops to **2** on Accept Remediation) |
-| **Advisory / Low** | **1** |
-| **RAG Faithfulness** | **100.0%** |
-| **Red Highlighted Lines** | **Line 30**, **Line 42**, **Line 60**, **Line 82** |
-| **First Card (Top)** | **MISRA C:2012 Rule 16.4 (Required) — Line 60** |
-| **Action to Demo** | Click **'Accept Remediation'** on Line 60 -> turns **GREEN**! |
+| **Active Module** | `bms_cell_monitor.c` |
+| **KPI Total Open** | **4** (drops to **3** on Accept Remediation) |
+| **KPI Mandatory / Critical** | **0** |
+| **KPI Required / High** | **3** (drops to **2** on Accept Remediation) |
+| **KPI Advisory / Low** | **1** |
+| **KPI Faithfulness** | **100.0%** |
+| **Flagged Red Lines** | **Line 30**, **Line 42**, **Line 60**, **Line 82** |
+| **Top Visible Card** | **MISRA C:2012 Rule 16.4 (Required) — Line 60** |
+| **Action to Demo** | Click **'Accept Remediation'** on Line 60 -> turns **GREEN** & code text updates live! |
