@@ -1191,11 +1191,41 @@
 
     function acceptFix(findingId) {
       const card = document.getElementById(`card-${findingId}`);
-      if (card) {
-        card.style.opacity = "0.6";
+      const finding = currentFindings.find(f => f.finding_id === findingId);
+      
+      if (card && finding) {
         card.style.borderLeftColor = "#16a34a";
+        card.style.background = "#f0fdf4";
+        
+        // Replace action buttons with Staged badge
+        const footer = card.querySelector(".card-footer");
+        if (footer) {
+          footer.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 6px; color: #16a34a; font-weight: 700; font-size: 11.5px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Remediation Approved & Staged for CI/CD Compilation</span>
+            </div>
+          `;
+        }
+
+        // Highlight code line as green resolved in editor
+        const lineEl = document.getElementById(`line-${finding.line}`);
+        if (lineEl) {
+          lineEl.classList.remove("has-bug");
+          lineEl.style.background = "rgba(34, 197, 94, 0.25)";
+          lineEl.style.borderLeft = "3px solid #16a34a";
+        }
+
+        // Decrement total violations KPI
+        const totalEl = document.getElementById("kpi-total-val");
+        if (totalEl) {
+          let cur = parseInt(totalEl.innerText, 10);
+          if (!isNaN(cur) && cur > 0) {
+            totalEl.innerText = cur - 1;
+          }
+        }
       }
-      showToast(`Remediation accepted for ${findingId}. Staged for build.`, "success");
+      showToast(`Remediation patch approved for ${findingId}. Staged for automated compilation test.`, "success");
     }
 
     function rejectFix(findingId) {
@@ -1203,8 +1233,17 @@
       if (card) {
         card.style.opacity = "0.5";
         card.style.borderLeftColor = "#94a3b8";
+        card.style.background = "#f8fafc";
+        const footer = card.querySelector(".card-footer");
+        if (footer) {
+          footer.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 6px; color: #64748b; font-weight: 600; font-size: 11.5px;">
+              <span>Dismissed as False Positive / Intentional Architecture</span>
+            </div>
+          `;
+        }
       }
-      showToast(`Finding ${findingId} dismissed by engineer.`, "info");
+      showToast(`Finding ${findingId} dismissed by peer reviewer.`, "info");
     }
 
     function openDeviationModal(findingId) {
