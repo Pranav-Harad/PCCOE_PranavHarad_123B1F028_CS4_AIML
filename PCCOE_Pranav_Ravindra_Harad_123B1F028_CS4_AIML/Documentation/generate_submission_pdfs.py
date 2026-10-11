@@ -377,11 +377,11 @@ def build_technical_report_pdf(output_path: str, arch_img_path: str, wf_img_path
     story.append(Paragraph("5. Evaluation Steps and Results", styles['section']))
     eval_rows = [
         [Paragraph("<b>#</b>", styles['table_cell_bold']), Paragraph("<b>Test question / scenario</b>", styles['table_cell_bold']), Paragraph("<b>Expected answer / behaviour</b>", styles['table_cell_bold']), Paragraph("<b>Result (Pass/Fail, notes)</b>", styles['table_cell_bold'])],
-        [Paragraph("1", styles['table_cell']), Paragraph("CAN Payload Bitwise Precedence Ambiguity (TC-01)", styles['table_cell']), Paragraph("Flag MISRA C:2012 Rule 12.1; provide parenthesized fix", styles['table_cell']), Paragraph("PASS (Line 28, Cit: Rule 12.1, Latency: 2.4ms)", styles['table_cell'])],
-        [Paragraph("2", styles['table_cell']), Paragraph("Dynamic Memory malloc in ASIL-D Unit (TC-02)", styles['table_cell']), Paragraph("Flag MISRA C:2012 Rule 21.3; replace with static pool", styles['table_cell']), Paragraph("PASS (Line 58, Cit: Rule 21.3, Latency: 0.7ms)", styles['table_cell'])],
+        [Paragraph("1", styles['table_cell']), Paragraph("CAN Payload Bitwise Precedence Ambiguity (TC-01)", styles['table_cell']), Paragraph("Flag MISRA C:2012 Rule 12.1; provide parenthesized fix", styles['table_cell']), Paragraph("PASS (Line 30, Cit: Rule 12.1, Latency: 1.8ms)", styles['table_cell'])],
+        [Paragraph("2", styles['table_cell']), Paragraph("Missing Upper Bound on Array Subscript (TC-02)", styles['table_cell']), Paragraph("Flag CERT-C ARR30-C; add bounds guard before indexing", styles['table_cell']), Paragraph("PASS (Line 42, Cit: ARR30-C, Latency: 0.8ms)", styles['table_cell'])],
         [Paragraph("3", styles['table_cell']), Paragraph("State Machine Missing Mandatory Default (TC-03)", styles['table_cell']), Paragraph("Flag MISRA C:2012 Rule 16.4; add fault safe-state default", styles['table_cell']), Paragraph("PASS (Line 60, Cit: Rule 16.4, Latency: 0.7ms)", styles['table_cell'])],
         [Paragraph("4", styles['table_cell']), Paragraph("Unchecked CAN Hardware Return Status (TC-04)", styles['table_cell']), Paragraph("Flag MISRA C:2012 Rule 17.7; evaluate return status code", styles['table_cell']), Paragraph("PASS (Line 82, Cit: Rule 17.7, Latency: 0.6ms)", styles['table_cell'])],
-        [Paragraph("5", styles['table_cell']), Paragraph("ISR Race Condition on Shared Ring Buffer (TC-07)", styles['table_cell']), Paragraph("Flag CERT-C CON33-C; enforce volatile & critical section", styles['table_cell']), Paragraph("PASS (Line 13, Cit: CON33-C, Latency: 0.9ms)", styles['table_cell'])]
+        [Paragraph("5", styles['table_cell']), Paragraph("Dynamic Memory malloc in ASIL-D Unit (TC-05)", styles['table_cell']), Paragraph("Flag MISRA C:2012 Rule 21.3; replace with static pool", styles['table_cell']), Paragraph("PASS (Line 14, Cit: Rule 21.3, Latency: 0.7ms)", styles['table_cell'])]
     ]
     t_scenarios = Table(eval_rows, colWidths=[20, 180, 200, 140])
     t_scenarios.setStyle(TableStyle([
@@ -503,9 +503,13 @@ def build_technical_report_pdf(output_path: str, arch_img_path: str, wf_img_path
 if __name__ == "__main__":
     doc_dir = os.path.dirname(os.path.abspath(__file__))
     project_dir = os.path.dirname(doc_dir)
+    root_dir = os.path.dirname(project_dir)
     
     synopsis_pdf = os.path.join(project_dir, "Synopsis", "PCCOE_PranavHarad_123B1F028_Synopsis.pdf")
     report_pdf = os.path.join(doc_dir, "PCCOE_PranavHarad_123B1F028_Technical_Report.pdf")
+
+    root_synopsis_pdf = os.path.join(root_dir, "PCCOE_PranavHarad_123B1F028_Synopsis.pdf")
+    root_report_pdf = os.path.join(root_dir, "PCCOE_PranavHarad_123B1F028_Technical_Report.pdf")
     
     arch_img = os.path.join(doc_dir, "Architecture_Diagram.png")
     wf_img = os.path.join(doc_dir, "Workflow_Diagram.png")
@@ -513,7 +517,9 @@ if __name__ == "__main__":
 
     print("[*] Generating Official Project Synopsis PDF...")
     build_synopsis_pdf(synopsis_pdf, arch_img)
+    build_synopsis_pdf(root_synopsis_pdf, arch_img)
 
     print("[*] Generating Official Technical Report PDF...")
     build_technical_report_pdf(report_pdf, arch_img, wf_img, chart_img)
-    print("[SUCCESS] All submission PDFs generated successfully!")
+    build_technical_report_pdf(root_report_pdf, arch_img, wf_img, chart_img)
+    print("[SUCCESS] All submission PDFs generated successfully both inside and outside PCCOE directory!")
