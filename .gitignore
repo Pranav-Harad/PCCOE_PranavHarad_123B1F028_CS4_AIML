@@ -23,3 +23,9 @@ dist/
 
 # Streamlit logs
 .streamlit/
+
+# Large Video recordings (uploaded to GDrive/YouTube instead of git repo)
+*.mp4
+*.mov
+*.avi
+*.mkv

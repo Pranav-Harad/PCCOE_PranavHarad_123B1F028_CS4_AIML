@@ -314,62 +314,101 @@ function downloadPermitFile() {
 }
 
 async function exportSARIF() {
-    if (currentFindings.length === 0) {
+    if (!currentFindings || currentFindings.length === 0) {
         showToast("Please run static analysis prior to exporting", "info");
         return;
     }
-    const resp = await fetch("/api/export/sarif", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ findings: currentFindings })
-    });
-    const blob = await resp.blob();
-    downloadBlob(blob, `${currentModule}_findings.sarif`);
+    try {
+        const resp = await fetch("/api/export/sarif", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ findings: currentFindings })
+        });
+        const text = await resp.text();
+        const modName = currentModule.replace(/\.[^/.]+$/, "");
+        downloadTextFile(text, `${modName}_findings.sarif`, "application/json;charset=utf-8;");
+    } catch (err) {
+        showToast("Error generating SARIF export", "error");
+    }
 }
 
 async function exportCSV() {
-    if (currentFindings.length === 0) {
+    if (!currentFindings || currentFindings.length === 0) {
         showToast("Please run static analysis prior to exporting", "info");
         return;
     }
-    const resp = await fetch("/api/export/csv", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ findings: currentFindings })
-    });
-    const blob = await resp.blob();
-    downloadBlob(blob, `${currentModule}_compliance.csv`);
+    try {
+        const resp = await fetch("/api/export/csv", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ findings: currentFindings })
+        });
+        const text = await resp.text();
+        const modName = currentModule.replace(/\.[^/.]+$/, "");
+        downloadTextFile(text, `${modName}_compliance.csv`, "text/csv;charset=utf-8;");
+    } catch (err) {
+        showToast("Error generating CSV export", "error");
+    }
 }
 
 async function exportMarkdown() {
-    if (currentFindings.length === 0) {
+    if (!currentFindings || currentFindings.length === 0) {
         showToast("Please run static analysis prior to exporting", "info");
         return;
     }
-    const resp = await fetch("/api/export/markdown", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-            findings: currentFindings,
-            summary: {
-                file: currentModule,
+    try {
+        const resp = await fetch("/api/export/markdown", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                findings: currentFindings,
                 summary: {
-                    critical_and_mandatory: currentFindings.filter(f => f.severity === 'Mandatory' || f.severity === 'Critical').length,
-                    required_and_high: currentFindings.filter(f => f.severity === 'Required' || f.severity === 'High').length
+                    file: currentModule,
+                    summary: {
+                        critical_and_mandatory: currentFindings.filter(f => f.severity === 'Mandatory' || f.severity === 'Critical').length,
+                        required_and_high: currentFindings.filter(f => f.severity === 'Required' || f.severity === 'High').length
+                    }
                 }
-            }
-        })
-    });
-    const blob = await resp.blob();
-    downloadBlob(blob, `${currentModule}_audit_report.md`);
+            })
+        });
+        const text = await resp.text();
+        const modName = currentModule.replace(/\.[^/.]+$/, "");
+        downloadTextFile(text, `${modName}_audit_report.md`, "text/markdown;charset=utf-8;");
+    } catch (err) {
+        showToast("Error generating Markdown export", "error");
+    }
+}
+
+function downloadTextFile(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.setAttribute("download", filename);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 300);
+    showToast(`Exported ${filename}`, "success");
 }
 
 function downloadBlob(blob, filename) {
-    const url = URL.createObjectURL(blob);
+    const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
+    a.style.display = "none";
     a.href = url;
+    a.setAttribute("download", filename);
     a.download = filename;
+    document.body.appendChild(a);
     a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 300);
     showToast(`Exported ${filename}`, "success");
 }
 

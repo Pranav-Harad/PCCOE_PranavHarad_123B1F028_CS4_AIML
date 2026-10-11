@@ -10,7 +10,7 @@ def create_zip():
             if "__pycache__" in root or ".pytest_cache" in root:
                 continue
             for file in files:
-                if file.endswith(".pyc") or file.endswith(".tmp"):
+                if file.endswith(".pyc") or file.endswith(".tmp") or file.endswith(".mp4") or file.endswith(".mov") or file.endswith(".avi"):
                     continue
                 file_path = os.path.join(root, file)
                 rel_path = os.path.relpath(file_path, ".")
