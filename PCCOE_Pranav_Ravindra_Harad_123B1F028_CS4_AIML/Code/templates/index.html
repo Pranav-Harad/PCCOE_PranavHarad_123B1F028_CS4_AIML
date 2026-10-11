@@ -78,7 +78,7 @@
     }
 
     /* =============================================================================
-       1. TATA TECHNOLOGIES CORPORATE MASTHEAD (WHITE CLEAN NAVBAR)
+       1. CORPORATE MASTHEAD (CLEAN NAVBAR - TOP RIGHT LOGO REMOVED)
        ============================================================================= */
     .corporate-masthead {
       height: 64px;
@@ -135,7 +135,7 @@
     .masthead-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
     .candidate-pill {
@@ -186,12 +186,25 @@
       box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
     }
 
-    .tata-emblem-badge {
-      display: flex;
+    .btn-ai-drawer-toggle {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      color: var(--tata-electric-blue);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: var(--font-display);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding-left: 12px;
-      border-left: 1px solid #E2E8F0;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-ai-drawer-toggle:hover {
+      background: var(--tata-electric-blue);
+      color: #FFFFFF;
+      border-color: var(--tata-electric-blue);
     }
 
     /* =============================================================================
@@ -200,7 +213,7 @@
     .enterprise-hero-banner {
       background: linear-gradient(135deg, #0012A3 0%, #001DBA 50%, #0B0E75 100%);
       color: #FFFFFF;
-      padding: 24px 28px;
+      padding: 22px 28px;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -244,12 +257,12 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
       color: #93C5FD;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 800;
       letter-spacing: -0.3px;
       line-height: 1.25;
@@ -257,9 +270,9 @@
     }
 
     .hero-subtitle {
-      font-size: 12.5px;
+      font-size: 12px;
       color: #DBEAFE;
-      margin-top: 6px;
+      margin-top: 5px;
       line-height: 1.5;
       font-weight: 400;
     }
@@ -325,17 +338,17 @@
        3. EXECUTIVE COMPLIANCE KPI SUMMARY BAR (5 CARDS)
        ============================================================================= */
     .kpi-container {
-      padding: 16px 24px;
+      padding: 14px 24px;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
+      gap: 12px;
     }
 
     .kpi-card {
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
-      padding: 14px 18px;
+      padding: 12px 16px;
       box-shadow: var(--shadow-xs);
       display: flex;
       flex-direction: column;
@@ -365,7 +378,7 @@
     .kpi-card.kpi-faith::before    { background: var(--status-success); }
 
     .kpi-label {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
@@ -377,10 +390,10 @@
 
     .kpi-num {
       font-family: var(--font-display);
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--text-main);
-      margin: 6px 0 2px 0;
+      margin: 4px 0 2px 0;
       line-height: 1.1;
     }
     .kpi-total .kpi-num    { color: var(--tata-electric-blue); }
@@ -390,25 +403,27 @@
     .kpi-faith .kpi-num    { color: var(--status-success); }
 
     .kpi-caption {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
       font-weight: 500;
     }
 
     /* =============================================================================
-       4. MAIN WORKSPACE (SPLIT LAYOUT: EDITOR & TRIAGE)
+       4. MAIN WORKSPACE: SIDEBAR + RESIZABLE SPLIT PANES
        ============================================================================= */
     .workspace-layout {
       flex: 1;
       padding: 0 24px 20px 24px;
-      display: grid;
-      grid-template-columns: 240px 1fr 1fr;
+      display: flex;
       gap: 16px;
       min-height: 600px;
+      position: relative;
     }
 
-    /* Column 1: Automotive ECU Module Browser */
+    /* Sidebar Panel: 290px comfortable width */
     .sidebar-panel {
+      width: 290px;
+      flex-shrink: 0;
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
@@ -436,53 +451,103 @@
     .module-list {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       flex: 1;
       overflow-y: auto;
     }
 
+    /* Enhanced Module Items (Fixed Text Wrapping & Clear Titles) */
     .module-item-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      padding: 8px 10px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      padding: 9px 11px;
       border-radius: 6px;
       text-align: left;
-      font-family: var(--font-code);
-      font-size: 11.5px;
-      color: var(--text-secondary);
-      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 10px;
       transition: all 0.15s ease;
+      width: 100%;
     }
     .module-item-btn:hover {
-      background: #F1F5F9;
-      color: var(--text-main);
-      border-color: #E2E8F0;
+      background: #F8FAFC;
+      border-color: #CBD5E1;
     }
     .module-item-btn.active {
       background: #EFF6FF;
+      border-color: #93C5FD;
+      box-shadow: 0 1px 3px rgba(0, 29, 186, 0.08);
+    }
+
+    .module-icon-box {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #F1F5F9;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .module-item-btn.active .module-icon-box {
+      background: #DBEAFE;
       color: var(--tata-electric-blue);
-      border-color: #BFDBFE;
+    }
+
+    .module-content-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .module-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .module-filename {
+      font-family: var(--font-code);
+      font-size: 11.5px;
       font-weight: 700;
+      color: var(--text-main);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .module-item-btn.active .module-filename {
+      color: var(--tata-electric-blue);
+    }
+
+    .module-subtitle {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .module-badge-tag {
       font-family: var(--font-ui);
-      font-size: 9.5px;
-      padding: 1px 5px;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
       border-radius: 3px;
-      background: #E2E8F0;
-      color: var(--text-secondary);
-      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .module-item-btn.active .module-badge-tag {
-      background: #DBEAFE;
-      color: var(--tata-electric-blue);
-    }
+    .module-badge-tag.asil-d { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+    .module-badge-tag.asil-c { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .module-badge-tag.asil-b { background: #E0E7FF; color: #3730A3; border: 1px solid #C7D2FE; }
+    .module-badge-tag.custom { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
 
     .btn-add-module-sidebar {
       margin-top: 12px;
@@ -507,7 +572,64 @@
       color: var(--tata-electric-blue);
     }
 
-    /* Column 2: Code Viewer & Compiler Stream Panel */
+    /* Resizable Split Container */
+    .split-workspace-container {
+      flex: 1;
+      display: flex;
+      min-width: 0;
+      gap: 0;
+      position: relative;
+    }
+
+    /* Draggable Splitter Handle */
+    .pane-slider-handle {
+      width: 12px;
+      cursor: col-resize;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: transparent;
+      user-select: none;
+      position: relative;
+      z-index: 10;
+      transition: background 0.15s ease;
+      flex-shrink: 0;
+    }
+    .pane-slider-handle:hover,
+    .pane-slider-handle.is-dragging {
+      background: rgba(0, 29, 186, 0.08);
+    }
+
+    .slider-grip-line {
+      width: 2px;
+      height: 42px;
+      background: #CBD5E1;
+      border-radius: 1px;
+    }
+    .pane-slider-handle:hover .slider-grip-line,
+    .pane-slider-handle.is-dragging .slider-grip-line {
+      background: var(--tata-electric-blue);
+    }
+
+    .slider-grip-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .slider-grip-dots span {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #94A3B8;
+    }
+    .pane-slider-handle:hover .slider-grip-dots span,
+    .pane-slider-handle.is-dragging .slider-grip-dots span {
+      background: var(--tata-electric-blue);
+    }
+
+    /* Left Pane: Code Viewer & Compiler Stream Panel */
     .viewer-panel {
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
@@ -516,6 +638,7 @@
       flex-direction: column;
       overflow: hidden;
       box-shadow: var(--shadow-xs);
+      min-width: 240px;
     }
 
     .pane-toolbar {
@@ -526,6 +649,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-shrink: 0;
     }
 
     .tab-pills-bar {
@@ -628,7 +752,7 @@
       white-space: pre-wrap;
     }
 
-    /* Column 3: Structured Findings Triage Panel */
+    /* Right Pane: Structured Findings Triage Panel */
     .triage-panel {
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
@@ -637,6 +761,27 @@
       flex-direction: column;
       overflow: hidden;
       box-shadow: var(--shadow-xs);
+      min-width: 240px;
+    }
+
+    .split-preset-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-split-preset {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .btn-split-preset:hover {
+      background: #E2E8F0;
+      color: var(--text-main);
     }
 
     .filter-pills-bar {
@@ -840,7 +985,6 @@
       border-color: #94A3B8;
     }
 
-    /* Staged State Pill */
     .status-staged-pill {
       display: inline-flex;
       align-items: center;
@@ -851,7 +995,158 @@
     }
 
     /* =============================================================================
-       5. CI/CD EXPORT PANEL (BOTTOM TRAY)
+       5. SLIDE-OUT AI AGENT ASSISTANT DRAWER
+       ============================================================================= */
+    .ai-assistant-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 440px;
+      background: #FFFFFF;
+      box-shadow: -8px 0 35px rgba(0, 20, 80, 0.18);
+      border-left: 1px solid var(--border-subtle);
+      z-index: 2500;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .ai-assistant-drawer.open {
+      transform: translateX(0);
+    }
+
+    .ai-drawer-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(2px);
+      z-index: 2400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .ai-drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ai-drawer-header {
+      padding: 16px 20px;
+      background: #0B1120;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1E293B;
+    }
+
+    .ai-drawer-title-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-drawer-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ai-drawer-sub {
+      font-size: 11px;
+      color: #94A3B8;
+    }
+
+    .ai-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #F8FAFC;
+    }
+
+    .ai-chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ai-chip-btn {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 16px;
+      padding: 5px 11px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .ai-chip-btn:hover {
+      background: #EFF6FF;
+      border-color: #93C5FD;
+      color: var(--tata-electric-blue);
+    }
+
+    .chat-bubble {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      line-height: 1.5;
+      max-width: 90%;
+    }
+    .chat-bubble.bot {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      color: #1E293B;
+      align-self: flex-start;
+      box-shadow: var(--shadow-xs);
+    }
+    .chat-bubble.user {
+      background: var(--tata-electric-blue);
+      color: #FFFFFF;
+      align-self: flex-end;
+    }
+
+    .ai-drawer-footer {
+      padding: 14px 16px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      gap: 8px;
+    }
+
+    .ai-chat-input {
+      flex: 1;
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-family: var(--font-ui);
+    }
+    .ai-chat-input:focus {
+      outline: none;
+      border-color: var(--tata-electric-blue);
+    }
+
+    .btn-ai-send {
+      background: var(--tata-electric-blue);
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* =============================================================================
+       6. CI/CD EXPORT PANEL (BOTTOM TRAY)
        ============================================================================= */
     .export-footer-tray {
       margin: 0 24px 20px 24px;
@@ -909,7 +1204,7 @@
     }
 
     /* =============================================================================
-       6. MODALS (ADD CUSTOM CODE & MISRA DEVIATION PERMIT)
+       7. MODALS (ADD CUSTOM CODE & MISRA DEVIATION PERMIT)
        ============================================================================= */
     .modal-backdrop {
       position: fixed;
@@ -1106,7 +1401,7 @@
 <body>
 
   <!-- =============================================================================
-       1. CORPORATE MASTHEAD (WHITE CLEAN BRANDING)
+       1. CORPORATE MASTHEAD (CLEAN NAVBAR - TOP RIGHT LOGO REMOVED)
        ============================================================================= -->
   <header class="corporate-masthead">
     <div class="masthead-left">
@@ -1139,14 +1434,11 @@
         <span>Pranav Ravindra Harad | PRN: 123B1F028 | PCCOE Pune</span>
       </div>
 
-      <!-- Classic TATA Emblem -->
-      <div class="tata-emblem-badge">
-        <svg width="58" height="24" viewBox="0 0 58 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="11" fill="#00358E"/>
-          <path d="M7 8h10M12 8v9M9.5 11.5l2.5 3 2.5-3" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <text x="27" y="17" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-weight="800" font-size="14" fill="#00358E" letter-spacing="1">TATA</text>
-        </svg>
-      </div>
+      <!-- Slide AI Assistant Trigger -->
+      <button class="btn-ai-drawer-toggle" onclick="toggleAiDrawer()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>AI Assistant</span>
+      </button>
     </div>
   </header>
 
@@ -1233,11 +1525,11 @@
   </section>
 
   <!-- =============================================================================
-       4. MAIN 3-COLUMN WORKSPACE: SIDEBAR + CODE VIEWER + FINDINGS TRIAGE
+       4. MAIN WORKSPACE (SIDEBAR + RESIZABLE SLIDING SPLIT PANES)
        ============================================================================= -->
   <main class="workspace-layout">
 
-    <!-- Column 1: Automotive ECU Module Browser -->
+    <!-- Column 1: Automotive ECU Module Browser (Fixed Names & ASIL Badges) -->
     <aside class="sidebar-panel">
       <div class="panel-headline">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
@@ -1245,20 +1537,44 @@
       </div>
 
       <div class="module-list" id="module-list-container">
-        <!-- Preloaded Samples -->
+        <!-- Preloaded Samples with Titles & Non-Wrapping Badges -->
         <button class="module-item-btn active" data-module="bms_cell_monitor.c">
-          <span>bms_cell_monitor.c</span>
-          <span class="module-badge-tag">ASIL-C</span>
+          <div class="module-icon-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <div class="module-content-col">
+            <div class="module-name-row">
+              <span class="module-filename" title="bms_cell_monitor.c">bms_cell_monitor.c</span>
+              <span class="module-badge-tag asil-c">ASIL-C</span>
+            </div>
+            <div class="module-subtitle">Battery Management System</div>
+          </div>
         </button>
 
         <button class="module-item-btn" data-module="throttle_actuator_driver.c">
-          <span>throttle_actuator_driver.c</span>
-          <span class="module-badge-tag">ASIL-D</span>
+          <div class="module-icon-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
+          </div>
+          <div class="module-content-col">
+            <div class="module-name-row">
+              <span class="module-filename" title="throttle_actuator_driver.c">throttle_actuator_driver.c</span>
+              <span class="module-badge-tag asil-d">ASIL-D</span>
+            </div>
+            <div class="module-subtitle">Electronic Throttle Actuator</div>
+          </div>
         </button>
 
         <button class="module-item-btn" data-module="can_transceiver.c">
-          <span>can_transceiver.c</span>
-          <span class="module-badge-tag">ASIL-B</span>
+          <div class="module-icon-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </div>
+          <div class="module-content-col">
+            <div class="module-name-row">
+              <span class="module-filename" title="can_transceiver.c">can_transceiver.c</span>
+              <span class="module-badge-tag asil-b">ASIL-B</span>
+            </div>
+            <div class="module-subtitle">CAN Bus Physical Transceiver</div>
+          </div>
         </button>
       </div>
 
@@ -1268,58 +1584,79 @@
       </button>
     </aside>
 
-    <!-- Column 2: Code Viewer & Compiler Stream Panel -->
-    <section class="viewer-panel">
-      <div class="pane-toolbar">
-        <div class="tab-pills-bar">
-          <button class="tab-pill active" data-tab="code">C Source Code</button>
-          <button class="tab-pill" data-tab="gcc">ARM GCC Build Stream</button>
-          <button class="tab-pill" data-tab="sarif">OASIS SARIF Stream</button>
+    <!-- Resizable Split Workspace Container (With Interactive Drag Slider) -->
+    <div class="split-workspace-container" id="split-workspace-container">
+
+      <!-- Left Pane: Code Viewer & Compiler Stream Panel -->
+      <section class="viewer-panel" id="viewer-panel" style="width: 50%;">
+        <div class="pane-toolbar">
+          <div class="tab-pills-bar">
+            <button class="tab-pill active" data-tab="code">C Source Code</button>
+            <button class="tab-pill" data-tab="gcc">ARM GCC Build Stream</button>
+            <button class="tab-pill" data-tab="sarif">OASIS SARIF Stream</button>
+          </div>
+
+          <div class="active-file-indicator">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span id="active-file-title">bms_cell_monitor.c</span>
+          </div>
         </div>
 
-        <div class="active-file-indicator">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <span id="active-file-title">bms_cell_monitor.c</span>
-        </div>
-      </div>
-
-      <div id="tab-code-view" class="code-editor-canvas">
-        <div id="code-viewer-content"></div>
-      </div>
-
-      <div id="tab-gcc-view" class="diagnostic-raw-stream" style="display: none;">
-        <pre id="gcc-text-view"></pre>
-      </div>
-
-      <div id="tab-sarif-view" class="diagnostic-raw-stream" style="display: none;">
-        <pre id="sarif-text-view"></pre>
-      </div>
-    </section>
-
-    <!-- Column 3: Structured Review Findings Triage Panel -->
-    <section class="triage-panel">
-      <div class="pane-toolbar">
-        <div style="font-family: var(--font-display); font-weight: 700; font-size: 12.5px; color: var(--tata-navy); display: flex; align-items: center; gap: 6px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <span>Structured Findings Triage</span>
+        <div id="tab-code-view" class="code-editor-canvas">
+          <div id="code-viewer-content"></div>
         </div>
 
-        <div class="filter-pills-bar">
-          <button class="filter-btn active" data-sev="ALL" onclick="filterSeverity('ALL')">All</button>
-          <button class="filter-btn" data-sev="MANDATORY" onclick="filterSeverity('MANDATORY')">Mandatory</button>
-          <button class="filter-btn" data-sev="REQUIRED" onclick="filterSeverity('REQUIRED')">Required</button>
-          <button class="filter-btn" data-sev="ADVISORY" onclick="filterSeverity('ADVISORY')">Advisory</button>
+        <div id="tab-gcc-view" class="diagnostic-raw-stream" style="display: none;">
+          <pre id="gcc-text-view"></pre>
         </div>
+
+        <div id="tab-sarif-view" class="diagnostic-raw-stream" style="display: none;">
+          <pre id="sarif-text-view"></pre>
+        </div>
+      </section>
+
+      <!-- Draggable Splitter Handle Bar (Interactive Sliding Divider) -->
+      <div class="pane-slider-handle" id="pane-slider-handle" title="Click and drag horizontally to resize panels">
+        <div class="slider-grip-line"></div>
+        <div class="slider-grip-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="slider-grip-line"></div>
       </div>
 
-      <div class="findings-scroll-area" id="findings-container">
-        <!-- Injected via JavaScript -->
-        <div style="text-align: center; color: var(--text-muted); padding: 60px 16px;">
-          <div style="font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--tata-navy);">Diagnostic Engine Ready</div>
-          <div style="font-size: 12px; margin-top: 4px;">Click 'Run Static Analysis & Review' above to begin automotive verification.</div>
+      <!-- Right Pane: Structured Review Findings Triage Panel -->
+      <section class="triage-panel" id="triage-panel" style="width: calc(50% - 12px);">
+        <div class="pane-toolbar">
+          <div style="font-family: var(--font-display); font-weight: 700; font-size: 12.5px; color: var(--tata-navy); display: flex; align-items: center; gap: 8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Structured Findings</span>
+
+            <!-- Quick Ratio Presets -->
+            <div class="split-preset-bar" title="Quick Panel Width Presets">
+              <button class="btn-split-preset" onclick="setSplitRatio(50)">50:50</button>
+              <button class="btn-split-preset" onclick="setSplitRatio(65)">Code Focus</button>
+              <button class="btn-split-preset" onclick="setSplitRatio(35)">Triage Focus</button>
+            </div>
+          </div>
+
+          <div class="filter-pills-bar">
+            <button class="filter-btn active" data-sev="ALL" onclick="filterSeverity('ALL')">All</button>
+            <button class="filter-btn" data-sev="MANDATORY" onclick="filterSeverity('MANDATORY')">Mandatory</button>
+            <button class="filter-btn" data-sev="REQUIRED" onclick="filterSeverity('REQUIRED')">Required</button>
+            <button class="filter-btn" data-sev="ADVISORY" onclick="filterSeverity('ADVISORY')">Advisory</button>
+          </div>
         </div>
-      </div>
-    </section>
+
+        <div class="findings-scroll-area" id="findings-container">
+          <!-- Injected via JavaScript -->
+          <div style="text-align: center; color: var(--text-muted); padding: 60px 16px;">
+            <div style="font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--tata-navy);">Diagnostic Engine Ready</div>
+            <div style="font-size: 12px; margin-top: 4px;">Click 'Run Static Analysis & Review' above to begin automotive verification.</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
 
   </main>
 
@@ -1354,7 +1691,44 @@
   </footer>
 
   <!-- =============================================================================
-       6. MODAL 1: ADD CUSTOM C SOURCE MODULE
+       6. SLIDE-OUT AI ASSISTANT DRAWER (AIR-GAPPED EXPERT ASSISTANT)
+       ============================================================================= -->
+  <div class="ai-drawer-overlay" id="ai-drawer-overlay" onclick="toggleAiDrawer()"></div>
+
+  <div class="ai-assistant-drawer" id="ai-assistant-drawer">
+    <div class="ai-drawer-header">
+      <div class="ai-drawer-title-col">
+        <div class="ai-drawer-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tata-cyan-glow)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>AutoSafe AI Review Assistant</span>
+        </div>
+        <span class="ai-drawer-sub">Local Vector RAG & MISRA Safety Expert • Air-Gapped</span>
+      </div>
+      <button class="btn-modal-close" style="color: #FFFFFF;" onclick="toggleAiDrawer()">&times;</button>
+    </div>
+
+    <div class="ai-drawer-body" id="ai-drawer-body">
+      <div class="chat-bubble bot">
+        <strong>AutoSafe Engine:</strong> Hello Pranav! I am your local automotive compliance copilot. You can ask me any question about MISRA C:2012, CERT C, or ISO 26262 Part 6 rules.
+      </div>
+
+      <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Quick Engineering Prompts:</div>
+      <div class="ai-chips-group">
+        <button class="ai-chip-btn" onclick="askAiPreset('Why is dynamic memory allocation (malloc) forbidden in ISO 26262 ASIL-D?')">Why forbid malloc in ASIL-D?</button>
+        <button class="ai-chip-btn" onclick="askAiPreset('Explain MISRA C:2012 Rule 12.1 regarding operator precedence.')">Explain Rule 12.1 Precedence</button>
+        <button class="ai-chip-btn" onclick="askAiPreset('What are the requirements for switch statement default clauses in Rule 16.4?')">Rule 16.4 Switch Default</button>
+        <button class="ai-chip-btn" onclick="askAiPreset('What mitigation controls justify a signed MISRA deviation permit?')">MISRA Deviation Mitigations</button>
+      </div>
+    </div>
+
+    <div class="ai-drawer-footer">
+      <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Ask AI assistant about MISRA / ISO 26262..." onkeydown="handleAiInputKey(event)">
+      <button class="btn-ai-send" onclick="sendAiMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- =============================================================================
+       7. MODAL 1: ADD CUSTOM C SOURCE MODULE
        ============================================================================= -->
   <div id="custom-module-modal" class="modal-backdrop">
     <div class="modal-card">
@@ -1398,7 +1772,7 @@
   </div>
 
   <!-- =============================================================================
-       7. MODAL 2: MISRA DEVIATION PERMIT GENERATOR (MISRA COMPLIANCE:2020)
+       8. MODAL 2: MISRA DEVIATION PERMIT GENERATOR (MISRA COMPLIANCE:2020)
        ============================================================================= -->
   <div id="deviation-modal" class="modal-backdrop">
     <div class="modal-card">
@@ -1462,7 +1836,7 @@
   <div id="toast-container" class="toast-tray"></div>
 
   <!-- =============================================================================
-       8. JAVASCRIPT APPLICATION CORE (ZERO EXTERNAL DEPENDENCY FAILURES)
+       9. JAVASCRIPT APPLICATION CORE (ZERO EXTERNAL DEPENDENCY FAILURES)
        ============================================================================= -->
   <script>
     let currentModule = "bms_cell_monitor.c";
@@ -1476,6 +1850,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadModule(currentModule);
       setupEventListeners();
+      initSliderResize();
     });
 
     function setupEventListeners() {
@@ -1501,6 +1876,109 @@
 
       // Primary Review Button
       document.getElementById("btn-run-review").addEventListener("click", runAnalysis);
+    }
+
+    /* Resizable Slider Between Code Viewer and Findings Triage */
+    function initSliderResize() {
+      const slider = document.getElementById("pane-slider-handle");
+      const viewerPanel = document.getElementById("viewer-panel");
+      const triagePanel = document.getElementById("triage-panel");
+      const container = document.getElementById("split-workspace-container");
+
+      if (!slider || !viewerPanel || !triagePanel || !container) return;
+
+      let isDragging = false;
+
+      slider.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        document.body.style.cursor = "col-resize";
+        document.body.style.userSelect = "none";
+        slider.classList.add("is-dragging");
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const containerRect = container.getBoundingClientRect();
+        const offsetX = e.clientX - containerRect.left;
+        const totalWidth = containerRect.width - slider.offsetWidth;
+
+        let leftPercent = (offsetX / totalWidth) * 100;
+        if (leftPercent < 22) leftPercent = 22;
+        if (leftPercent > 78) leftPercent = 78;
+
+        const rightPercent = 100 - leftPercent;
+        viewerPanel.style.width = `calc(${leftPercent}% - 6px)`;
+        triagePanel.style.width = `calc(${rightPercent}% - 6px)`;
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (isDragging) {
+          isDragging = false;
+          document.body.style.cursor = "";
+          document.body.style.userSelect = "";
+          slider.classList.remove("is-dragging");
+        }
+      });
+    }
+
+    function setSplitRatio(leftPercent) {
+      const viewerPanel = document.getElementById("viewer-panel");
+      const triagePanel = document.getElementById("triage-panel");
+      const rightPercent = 100 - leftPercent;
+      viewerPanel.style.width = `calc(${leftPercent}% - 6px)`;
+      triagePanel.style.width = `calc(${rightPercent}% - 6px)`;
+    }
+
+    /* Slide-out AI Assistant Drawer */
+    function toggleAiDrawer() {
+      const drawer = document.getElementById("ai-assistant-drawer");
+      const overlay = document.getElementById("ai-drawer-overlay");
+      drawer.classList.toggle("open");
+      overlay.classList.toggle("open");
+    }
+
+    function askAiPreset(question) {
+      const body = document.getElementById("ai-drawer-body");
+      
+      // User bubble
+      const userBubble = document.createElement("div");
+      userBubble.className = "chat-bubble user";
+      userBubble.innerText = question;
+      body.appendChild(userBubble);
+
+      // AI response lookup
+      let response = "Under MISRA C:2012 and ISO 26262 Part 6, safety-critical embedded systems enforce deterministic execution boundaries.";
+      if (question.includes("malloc")) {
+        response = "MISRA C:2012 Rule 21.3 strictly forbids dynamic heap memory allocation (malloc, calloc, free) in ISO 26262 ASIL-D ECUs. Dynamic memory induces non-deterministic execution times, heap fragmentation, and potential catastrophic allocation failure during safety actuation.";
+      } else if (question.includes("12.1")) {
+        response = "MISRA C:2012 Rule 12.1 states that the precedence of operators within expressions should be made explicit using parentheses. For example, bitwise shifts combined with bitwise OR (<< and |) have confusing operator precedence that can lead to subtle ADC voltage decoding bugs.";
+      } else if (question.includes("16.4")) {
+        response = "MISRA C:2012 Rule 16.4 requires that every switch statement have a final default label. In automotive ECUs, an unexpected state machine transition must trigger the default clause to place the hardware in a safe, fail-operational or fail-silent state.";
+      } else if (question.includes("mitigation")) {
+        response = "Under MISRA Compliance:2020, formal deviation permits require dual safety safeguards: (1) Hardware Memory Protection Unit (MPU) boundaries isolating register writes, and (2) Independent hardware watchdog timer alive-monitoring to reset the MCU upon faults.";
+      }
+
+      setTimeout(() => {
+        const botBubble = document.createElement("div");
+        botBubble.className = "chat-bubble bot";
+        botBubble.innerHTML = `<strong>AutoSafe RAG Engine:</strong> ${response}`;
+        body.appendChild(botBubble);
+        body.scrollTop = body.scrollHeight;
+      }, 350);
+
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function handleAiInputKey(e) {
+      if (e.key === "Enter") sendAiMessage();
+    }
+
+    function sendAiMessage() {
+      const input = document.getElementById("ai-chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      askAiPreset(text);
     }
 
     async function loadModule(filename) {
@@ -2040,8 +2518,16 @@ void Inverter_ApplyRegenBrake(uint16_t demand_nm, uint8_t inverter_mode) {
         newBtn.className = "module-item-btn";
         newBtn.setAttribute("data-module", fileName);
         newBtn.innerHTML = `
-          <span>${escapeHtml(fileName)}</span>
-          <span class="module-badge-tag" style="background: #E0E7FF; color: #4338CA;">CUSTOM</span>
+          <div class="module-icon-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="module-content-col">
+            <div class="module-name-row">
+              <span class="module-filename" title="${escapeHtml(fileName)}">${escapeHtml(fileName)}</span>
+              <span class="module-badge-tag custom">CUSTOM</span>
+            </div>
+            <div class="module-subtitle">User Uploaded ECU Module</div>
+          </div>
         `;
         newBtn.addEventListener("click", () => {
           document.querySelectorAll(".module-item-btn").forEach(b => b.classList.remove("active"));
