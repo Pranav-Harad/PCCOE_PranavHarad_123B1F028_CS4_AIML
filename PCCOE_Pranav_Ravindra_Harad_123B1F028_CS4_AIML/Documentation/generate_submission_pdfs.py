@@ -153,7 +153,7 @@ def build_synopsis_pdf(output_path: str, arch_img_path: str):
     story.append(Paragraph("• Ingestion & correlation of ARM/GCC compiler build warnings and OASIS SARIF static analysis logs.", styles['bullet']))
     story.append(Paragraph("• Deterministic static rule engine combined with Vector RAG (ChromaDB/TF-IDF) over MISRA/CERT rules.", styles['bullet']))
     story.append(Paragraph("• Air-gapped local LLM inference (Qwen2.5-Coder / Local Reasoning Engine) producing structured findings and diffs.", styles['bullet']))
-    story.append(Paragraph("• Streamlit Automotive Review Cockpit with interactive Diff Sandbox and MISRA Deviation Permit Generator.", styles['bullet']))
+    story.append(Paragraph("• Enterprise Flask Automotive Review Cockpit (Port 5000) with interactive in-place remediation and MISRA Deviation Permit Generator.", styles['bullet']))
     story.append(Spacer(1, 4))
     story.append(Paragraph("<b>Out of Scope – Will Not Be Implemented:</b>", styles['body_bold']))
     story.append(Paragraph("• Automatic unreviewed code commit or merge into production vehicle branches without engineer sign-off.", styles['bullet']))
@@ -162,7 +162,7 @@ def build_synopsis_pdf(output_path: str, arch_img_path: str):
     story.append(Spacer(1, 6))
 
     story.append(Paragraph("4. Proposed Approach", styles['section']))
-    story.append(Paragraph("The system employs a <b>Hybrid Tri-Engine Architecture</b>: (1) An AST & regex-based parser extracts syntactically complete functions, (2) A deterministic rule checker identifies verified violations to prevent hallucinations, (3) A local Vector RAG engine retrieves official MISRA/CERT rationales and ISO 26262 ASIL safety consequences, and (4) A local quantized LLM synthesizes root-cause diagnoses and minimal-diff compliant fixes. The developer reviews findings in an interactive Streamlit cockpit with deviation management and SARIF export.", styles['body']))
+    story.append(Paragraph("The system employs a <b>Hybrid Tri-Engine Architecture</b>: (1) An AST & regex-based parser extracts syntactically complete functions, (2) A deterministic rule checker identifies verified violations to prevent hallucinations, (3) A local Vector RAG engine retrieves official MISRA/CERT rationales and ISO 26262 ASIL safety consequences, and (4) A local quantized LLM synthesizes root-cause diagnoses and minimal-diff compliant fixes. The developer reviews findings in an interactive Flask enterprise cockpit (Port 5000) with real-time in-place patching, deviation management, and CI/CD export.", styles['body']))
 
     # ==================== PAGE 2 ====================
     story.append(PageBreak())
@@ -174,7 +174,7 @@ def build_synopsis_pdf(output_path: str, arch_img_path: str):
         [Paragraph("<b>Embedding model:</b>", styles['table_cell_bold']), Paragraph("BAAI/bge-small-en-v1.5 / Sublinear TF-IDF N-Gram Vectorizer (384-dim, Cosine Similarity).", styles['table_cell'])],
         [Paragraph("<b>Vector store:</b>", styles['table_cell_bold']), Paragraph("ChromaDB & In-Memory Dense Vector Store with rule metadata filters (Standard, Rule ID, Severity).", styles['table_cell'])],
         [Paragraph("<b>RAG pipeline / AI-agent design:</b>", styles['table_cell_bold']), Paragraph("Hybrid Dual-Retrieval: Deterministic AST rule detection + Semantic Vector RAG retrieval with strict citation guardrails embedding chapter, rationale, and compliant examples.", styles['table_cell'])],
-        [Paragraph("<b>Service layer and UI:</b>", styles['table_cell_bold']), Paragraph("Python backend service with Streamlit Automotive Review Cockpit web interface (Port 8501).", styles['table_cell'])],
+        [Paragraph("<b>Service layer and UI:</b>", styles['table_cell_bold']), Paragraph("Python Flask backend service with modern Enterprise Automotive Review Cockpit web interface (Port 5000).", styles['table_cell'])],
         [Paragraph("<b>Tools / deterministic rules:</b>", styles['table_cell_bold']), Paragraph("AST function chunker, GCC build log parser, OASIS SARIF v2.1.0 reader, Cppcheck-inspired static rule checker (MISRA C:2012 Rules 12.1, 21.3, 16.4, 17.7, 9.1, 11.4, CERT CON33-C).", styles['table_cell'])]
     ]
     t_arch = Table(arch_table_data, colWidths=[160, 380])
@@ -344,7 +344,7 @@ def build_technical_report_pdf(output_path: str, arch_img_path: str, wf_img_path
         [Paragraph("Embedding model", styles['table_cell']), Paragraph("BAAI/bge-small-en-v1.5 / Sublinear TF-IDF N-Gram Vectorizer (384 dimensions, Cosine Similarity).", styles['table_cell'])],
         [Paragraph("Vector store", styles['table_cell']), Paragraph("ChromaDB / In-Memory Dense Vector Index with metadata filters (Standard, Rule ID, Severity).", styles['table_cell'])],
         [Paragraph("RAG pipeline / AI-agent design", styles['table_cell']), Paragraph("Hybrid Tri-Engine: AST code chunking + Deterministic static checking + Vector RAG rule retrieval with anti-hallucination citation guardrails.", styles['table_cell'])],
-        [Paragraph("Service layer and UI", styles['table_cell']), Paragraph("Streamlit Automotive Review Cockpit Web UI (Port 8501) with Python modular backend.", styles['table_cell'])],
+        [Paragraph("Service layer and UI", styles['table_cell']), Paragraph("Enterprise Flask Web Application (Port 5000) with HTML5/CSS3 cockpit, real-time in-place code patching, custom module loader, and Python modular backend.", styles['table_cell'])],
         [Paragraph("Tools / deterministic rules", styles['table_cell']), Paragraph("AST parser, GCC warning parser, OASIS SARIF reader, and static rule checkers for MISRA Rules 12.1, 21.3, 16.4, 17.7, 9.1, 11.4, and CERT CON33-C.", styles['table_cell'])]
     ]
     t_sol = Table(sol_table_data, colWidths=[150, 390])
