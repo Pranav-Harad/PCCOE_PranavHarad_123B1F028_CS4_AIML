@@ -1,4 +1,4 @@
-# SIMPLE & CLEAR VIDEO DEMONSTRATION SCRIPT
+# SIMPLE & ACCURATE VIDEO DEMONSTRATION SCRIPT
 ## AutoSafe-Review: Automotive ECU Code Review Dashboard
 **Tata Technologies TechPulse FY-26 | Case Study 4**  
 **Candidate:** Pranav Ravindra Harad | **PRN:** 123B1F028 | **College:** PCCOE Pune  
@@ -7,150 +7,164 @@
 
 ---
 
-## 🎬 Step-by-Step Speaking Script (Simple English)
+## 🎬 Step-by-Step Speaking Script (Exact Lines & Metrics)
 
 ---
 
 ### ⏱️ 0:00 – 0:45 | Part 1: Introduction & Header
-* **Action on Screen:** Keep browser open at `http://localhost:5000/`. Move mouse near the top header.
+* **Action on Screen:** Keep browser open at `http://localhost:5000/`. Move your mouse near the top header.
 * **What to Say:**
 > *"Hello everyone and respected evaluators.  
-> My name is Pranav Ravindra Harad, PRN 123B1F028, from PCCOE Pune.  
+> My name is **Pranav Ravindra Harad**, PRN **123B1F028**, from **Pimpri Chinchwad College of Engineering (PCCOE), Pune**.  
 > 
-> Today, I am presenting my project for Tata Technologies TechPulse FY-26, Case Study 4: Secure Code Debugging and Review Assistant.  
+> Today, I am demonstrating my project for Tata Technologies TechPulse FY-26, Case Study 4: Secure Code Debugging and Review Assistant.  
 > 
-> Here on screen is our live web dashboard, called **AutoSafe-Review**.  
-> At the top header, you can see the official Tata Technologies portal title and my candidate credentials.  
-> The entire dashboard is running locally on port 5000, designed specifically for automotive ECU code analysis."*
+> Here on screen is our live web cockpit, called **AutoSafe-Review**.  
+> In the top header, you can see the official Tata Technologies portal title and my candidate credentials.  
+> The dashboard runs 100% locally on port 5000, designed specifically for safety-critical automotive ECU software."*
 
 ---
 
-### ⏱️ 0:45 – 1:30 | Part 2: ECU Modules & Code Viewer
-* **Action on Screen:** Point mouse to the left sidebar, click the different tabs above the code editor, and show the draggable slider.
+### ⏱️ 0:45 – 1:30 | Part 2: ECU Modules & Code Viewer Setup
+* **Action on Screen:** Point mouse to the left sidebar, show the tabs above the code editor, and demonstrate the middle slider.
 * **What to Say & Do:**
 > *(Point mouse to the left sidebar)*  
-> *"On the left sidebar, we have pre-loaded automotive ECU modules:  
-> 1. A Battery Management module — `bms_cell_monitor.c`,  
-> 2. A Throttle Actuator driver, and  
-> 3. A CAN transceiver module.  
+> *"On the left sidebar, we have pre-loaded automotive ECU driver modules:  
+> 1. Battery Management System — `bms_cell_monitor.c` (ASIL-C),  
+> 2. Electronic Throttle Actuator — `throttle_actuator_driver.c` (ASIL-D), and  
+> 3. CAN Transceiver — `can_transceiver.c` (ASIL-B).  
 > 
-> *(Point to the central code editor)*  
-> In the center, we have our full C source code with line numbers.  
-> Above the code, we can easily switch between:  
+> *(Point to the center code editor)*  
+> With `bms_cell_monitor.c` selected, our editor displays the full C source code with line numbering.  
+> Above the code, we can seamlessly switch between:  
 > - The **C Source Code**,  
-> - The **ARM GCC Compiler Log**, and  
-> - The **SARIF Diagnostic Stream**.  
+> - The **ARM GCC Build Stream**, and  
+> - The **OASIS SARIF Stream**.  
 > 
 > *(Click and drag the middle slider slightly, or click 'Code Focus' then '50:50')*  
-> We also added a smooth draggable slider and presets like 50:50 and Code Focus, so developers can resize panels comfortably on any screen."*
+> We also added a smooth draggable slider and presets like 50:50 and Code Focus, so engineers can comfortably resize code and findings on any monitor."*
 
 ---
 
-### ⏱️ 1:30 – 2:30 | Part 3: Running Static Analysis & KPI Cards
-* **Action on Screen:** Click the blue **'Run Static Analysis & Review'** button. Then point mouse to the top 5 KPI cards.
+### ⏱️ 1:30 – 2:30 | Part 3: Running Static Analysis & Exact KPI Results
+* **Action on Screen:** Click the blue button: **'Run Static Analysis & Review'**. Then point mouse across the 5 KPI cards at the top.
 * **What to Say & Do:**
 > *(Click 'Run Static Analysis & Review')*  
 > *"Now, let's run the static analysis. I click this blue button: **'Run Static Analysis & Review'**.  
 > 
-> In just one second, our diagnostic engine inspects the entire file.  
+> In less than one second, our diagnostic engine analyzes the module.  
 > 
 > *(Move mouse across the 5 KPI cards)*  
-> At the top, our KPI cards show immediate results:  
-> - **Total Open Violations:** 4 issues found in this file.  
-> - **Mandatory / Critical:** 1 safety violation.  
-> - **Required / High:** 2 violations.  
-> - **Advisory / Low:** 1 coding guideline issue.  
-> - And **RAG Grounding & Faithfulness:** 100%, meaning all rules are strictly verified with zero hallucination."*
+> Immediately, our Executive KPI Cards show the exact compliance metrics:  
+> - **Total Open Violations:** Exactly **4** issues identified in this file.  
+> - **Mandatory / Critical:** **0**.  
+> - **Required / High:** **3** violations requiring remediation.  
+> - **Advisory / Low:** **1** coding guideline issue.  
+> - And **RAG Grounding & Faithfulness:** **100.0%**, confirming zero hallucinations with strict MISRA standard citations."*
 
 ---
 
-### ⏱️ 2:30 – 3:30 | Part 4: Code Defect Highlighting & Finding Cards
-* **Action on Screen:** Point to the red highlighted lines in the code (Line 24). Click the finding card on the right to show auto-scrolling.
+### ⏱️ 2:30 – 3:45 | Part 4: Code Defect Red Highlighting (Lines 30, 42, 60, 82)
+* **Action on Screen:** Scroll the code editor to show the red lines: **Line 30, Line 42, Line 60, Line 82**. Point to the finding cards on the right.
 * **What to Say & Do:**
-> *(Point to the red line in the code editor)*  
-> *"Notice the code editor on the left: non-compliant code lines are automatically highlighted in red, like Line 24.  
+> *(Point to the code editor on the left)*  
+> *"Now look at the code viewer on the left: all non-compliant lines are automatically highlighted with clear red indicator bars:  
+> - **Line 30:** A bitwise operator precedence ambiguity without parentheses.  
+> - **Line 42:** An array index without upper-bound validation against `BMS_MAX_CELLS`.  
+> - **Line 60:** A state machine switch statement missing the mandatory default label.  
+> - **Line 82:** Discarding the return value of `Can_TransmitFrame`.  
 > 
-> *(Point to the finding cards on the right)*  
-> On the right side, each defect is neatly explained:  
-> - It mentions the rule: **MISRA C:2012 Rule 12.1** for operator precedence.  
-> - It shows the exact non-compliant line.  
-> - It explains the root cause and the **ISO 26262 safety hazard**: missing parentheses can corrupt ADC voltage readings in a battery!  
-> - And it gives a clear **Unified Diff fix**, showing exactly what to remove in red and what to add in green.  
+> *(Point to the first finding card on the right — Line 60)*  
+> On the right side, each finding gives full engineering context:  
+> - Standard: **MISRA C:2012 Rule 16.4** (Required) for **Line 60**.  
+> - Non-compliant statement: `switch (g_bms_pack.state)`.  
+> - **ISO 26262 ASIL Impact:** State machine desynchronization if memory bit-flips occur.  
+> - And a color-coded **Unified Diff**, showing the exact code patch adding the defensive default fault-handler.  
 > 
-> *(Click anywhere on the finding card)*  
-> When I click any finding card, it automatically scrolls and highlights the exact line in our code editor."*
+> *(Click on the card for Line 42 or Line 60)*  
+> Notice that clicking any finding card automatically scrolls and flashes the exact line in our code editor."*
 
 ---
 
-### ⏱️ 3:30 – 4:30 | Part 5: Accept Remediation & Interactive Triage
-* **Action on Screen:** Click **'Accept Remediation'** on the card. Show Line 24 turn green. Click 'Required' tab, then back to 'All'. Show 'Undo'.
+### ⏱️ 3:45 – 4:45 | Part 5: Accept Remediation (Line 60 Turns Green) & Interactive State
+* **Action on Screen:** On the top card (Line 60), click **'Accept Remediation'**. Show Line 60 turn green. Show KPI drop from 4 to 3. Switch tabs (Required -> All). Click 'Undo'.
 * **What to Say & Do:**
-> *(Click 'Accept Remediation' on the first card)*  
-> *"Now, let's test the interactive review process.  
+> *(Click 'Accept Remediation' on the Line 60 card)*  
+> *"Now, let's test the interactive remediation workflow.  
 > When the reviewer clicks **'Accept Remediation'**:  
-> 1. Look at Line 24 in our code editor: it instantly turns **GREEN**! This visually confirms the fix is approved and staged.  
-> 2. The card shows a green badge: **'Remediation Approved & Staged'**.  
-> 3. And our KPI counter at the top automatically drops from 4 to 3!  
+> 1. Look at **Line 60** in the code editor: it instantly turns from red to **GREEN**! This visually confirms the remediation is staged.  
+> 2. The card updates with a green badge: **'Remediation Approved & Staged for CI/CD Compilation'**.  
+> 3. And look at the top KPI bar: Total Open Violations drops from **4 to 3**, and Required/High drops from **3 to 2**!  
 > 
 > *(Click 'Required' filter tab, then click back to 'All')*  
-> If we filter by 'Required' or 'Mandatory' and come back to 'All', the accepted state remains intact and never gets lost.  
+> Even when we switch between the filter tabs—Required, Advisory, and back to All—the accepted status remains permanently preserved.  
 > 
 > *(Click 'Undo' button on that card)*  
-> And if the engineer wants to revert, clicking **'Undo'** immediately brings back the red line and resets the KPI counter to 4."*
+> And if the engineer wants to revert, clicking **'Undo'** immediately restores Line 60 back to red and resets our KPI counter back to 4."*
 
 ---
 
-### ⏱️ 4:30 – 5:15 | Part 6: MISRA Deviation Permit Generator
-* **Action on Screen:** Click **'Request Deviation'** on one card. Show the pop-up modal. Click 'Generate Signed Deviation Record'.
+### ⏱️ 4:45 – 5:30 | Part 6: MISRA Deviation Permit Generator
+* **Action on Screen:** Click **'Request Deviation'** on one card (e.g., Line 82 or Line 60). Show the pop-up modal. Click 'Generate Signed Deviation Record'.
 * **What to Say & Do:**
-> *(Click 'Request Deviation' on any open finding card)*  
-> *"In automotive engineering, if a rule cannot be fixed due to hardware constraints, we must create a formal deviation permit under MISRA Compliance:2020.  
+> *(Click 'Request Deviation' on a card)*  
+> *"Under MISRA Compliance:2020, if a rule cannot be modified due to legacy or hardware constraints, engineers must file a formal deviation permit.  
 > 
 > Clicking **'Request Deviation'** opens our automated permit generator.  
-> It automatically fills in:  
-> - The Finding ID and Rule number,  
-> - The filename and line number,  
-> - The engineering justification, and  
-> - Safety mitigations.  
+> Notice that it automatically fills:  
+> - The Finding ID and Rule citation,  
+> - The target file `bms_cell_monitor.c` and exact line number,  
+> - The engineering rationale, and  
+> - The ASIL safety mitigations.  
 > 
 > *(Click 'Generate Signed Deviation Record')*  
-> Clicking this button generates a signed, formal deviation record.  
-> We can download this permit file with one click to keep in our safety audit files."*  
-> *(Close the modal by clicking '✕')*
+> Clicking 'Generate Signed Deviation Record' creates an official signed permit.  
+> The engineer can click **'Download Permit File'** to save it directly into the vehicle safety documentation package."*  
+> *(Close modal with '✕')*
 
 ---
 
-### ⏱️ 5:15 – 5:50 | Part 7: Adding Custom Modules & CI/CD Export
-* **Action on Screen:** Click **'+ Add Custom C Module'** (or in the hero banner). Show the presets. Then point to the bottom export bar.
+### ⏱️ 5:30 – 6:15 | Part 7: Add Custom Module & CI/CD Pipeline Exports
+* **Action on Screen:** Click **'+ Add Custom C Module'** in the hero banner. Show the modal. Close it. Point to the bottom export bar.
 * **What to Say & Do:**
 > *(Click 'Add Custom C Module' in the hero banner)*  
-> *"What if the user wants to test their own code?  
-> We provided an **'Add Custom C Module'** feature!  
-> Engineers can upload any local `.c` file or paste code directly, or choose from ready presets like an ABS Braking driver or EV motor inverter, and analyze it immediately.  
-> *(Close custom module modal)*  
+> *"What if the evaluation team wants to test custom code?  
+> We built the **'Add Custom C Module'** feature!  
+> Engineers can upload any local `.c` file, paste code directly, or select pre-configured presets like an ABS Braking driver or EV Motor Inverter, and analyze it immediately.  
+> *(Close modal)*  
 > 
 > *(Point to the bottom export tray)*  
-> Finally, at the bottom, we have one-click exports for CI/CD pipelines:  
-> - **OASIS SARIF v2.1.0** for SonarQube and GitHub,  
-> - **CSV Compliance Matrix** for Excel sheets, and  
-> - **Markdown Audit Report**.  
+> Finally, at the bottom, we provide one-click CI/CD pipeline exports:  
+> - **OASIS SARIF v2.1.0** for SonarQube, Jenkins, and GitHub Advanced Security,  
+> - **CSV Compliance Matrix** for spreadsheet audits, and  
+> - **Audit Report in Markdown**.  
 > 
 > *(Click 'Compliance Matrix (.csv)')*  
-> With one click, the report is saved directly to your computer."*
+> With one click, the full compliance matrix downloads locally."*
 
 ---
 
-### ⏱️ 5:50 – 6:15 | Part 8: Conclusion
+### ⏱️ 6:15 – 6:40 | Part 8: Conclusion
 * **Action on Screen:** Bring mouse back to the center of the dashboard.
 * **What to Say:**
-> *"To conclude, our AutoSafe-Review dashboard provides an end-to-end, reliable solution for automotive software safety.  
-> It highlights code defects instantly, allows real-time interactive fixes, automates MISRA compliance documentation, and integrates directly with CI/CD tools.  
+> *"In conclusion, AutoSafe-Review gives automotive engineers an end-to-end cockpit:  
+> Real-time defect detection, line-by-line visual highlighting, interactive remediation, automated MISRA deviation records, and enterprise CI/CD integration.  
 > 
-> Thank you very much for your time!"*
+> This completely fulfills every objective of Case Study 4.  
+> 
+> Thank you very much for your time and evaluation!"*
 
 ---
 
-## 💡 Quick Tips for Speaking Comfortably:
-1. Speak in your normal, calm speaking pace — you don't need to rush!
-2. Do each action with your mouse first, then speak about it.
-3. Keep the video between 5 and 6 minutes.
+## 🎯 Summary of Key Screen Values to Remember While Recording
+| Element | Exact Value on Screen |
+|---|---|
+| **File Being Reviewed** | `bms_cell_monitor.c` |
+| **Total Open Violations** | **4** (drops to **3** on Accept Remediation) |
+| **Mandatory / Critical** | **0** |
+| **Required / High** | **3** (drops to **2** on Accept Remediation) |
+| **Advisory / Low** | **1** |
+| **RAG Faithfulness** | **100.0%** |
+| **Red Highlighted Lines** | **Line 30**, **Line 42**, **Line 60**, **Line 82** |
+| **First Card (Top)** | **MISRA C:2012 Rule 16.4 (Required) — Line 60** |
+| **Action to Demo** | Click **'Accept Remediation'** on Line 60 -> turns **GREEN**! |
