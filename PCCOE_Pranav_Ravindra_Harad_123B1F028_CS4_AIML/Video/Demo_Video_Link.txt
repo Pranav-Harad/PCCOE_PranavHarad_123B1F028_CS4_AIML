@@ -24,7 +24,7 @@ RECORDING INSTRUCTIONS:
 --------------------------------------------------------------------------------
 1. Use Windows Game Bar (Press Win + Alt + R) or OBS Studio to record your screen and audio.
 2. Follow the script in DEMO_VIDEO_SCRIPT.md (Duration: 6 to 8 minutes).
-3. Ensure the Streamlit web app (http://localhost:8501/) and code inspection are clearly visible.
+3. Ensure the AutoSafe-Review Enterprise Cockpit (http://localhost:5000/) and code inspection are clearly visible.
 4. Upload the MP4 file to your Google Drive, set access to "Anyone with the link can view",
    and paste the link into the Google Form submission field.
 ================================================================================
