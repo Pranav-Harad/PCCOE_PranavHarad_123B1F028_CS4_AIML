@@ -1,162 +1,156 @@
-# 5 TO 10-MINUTE VIDEO DEMONSTRATION SCRIPT
-## AutoSafe-Review: Secure Code Debugging and Review Assistant
+# DASHBOARD-ONLY VIDEO DEMONSTRATION SCRIPT
+## AutoSafe-Review: Secure Automotive Code Debugging & Review Cockpit
 **Tata Technologies TechPulse FY-26 | AI/ML Capstone Project | Case Study 4**  
 **Candidate:** Pranav Ravindra Harad | **PRN:** 123B1F028 | **Institute:** Pimpri Chinchwad College of Engineering (PCCOE), Pune  
-**Serving URL:** `http://localhost:5000/` (Enterprise Flask Web Cockpit)
+**Screen Display:** 100% on `http://localhost:5000/` (No slides, no architecture diagrams needed)  
+**Target Duration:** 5 to 7 Minutes
 
 ---
 
-### Video Overview & Rubric Checklist
-
-| Phase | Time Window | Section Title | Key Demonstration Objective |
-| :--- | :--- | :--- | :--- |
-| **Part 1** | **0:00 – 1:15** | Introduction & Problem Context | State Name, PRN, College; Explain automotive air-gapped constraint |
-| **Part 2** | **1:15 – 2:30** | Multi-Modal Input Data & Knowledge Base | Show MISRA rules, automotive ECU C modules, GCC logs, SARIF files |
-| **Part 3** | **2:30 – 3:45** | Hybrid Architecture & Tri-Engine Pipeline | Explain C-AST chunking, Deterministic engine, Vector RAG & Local LLM |
-| **Part 4** | **3:45 – 6:45** | Live Demonstration in Enterprise Web Cockpit | Run review, show line highlights, Accept Remediation, tab switch persistence, MISRA deviation, SARIF export |
-| **Part 5** | **6:45 – 7:45** | Quantitative Evaluation & Benchmark Metrics | Show 100% precision, 100% recall, 0.0% hallucination, 0.76 ms latency |
-| **Part 6** | **7:45 – 8:15** | Conclusion & Viva Defense Summary | Concluding remarks and ready answers for examiner questions |
+## 📋 Quick Recording Instructions
+1. Make sure your Flask app is running (`python PCCOE_Pranav_Ravindra_Harad_123B1F028_CS4_AIML/run_cockpit.py`).
+2. Open your browser to `http://localhost:5000/` and maximize the screen.
+3. Start screen recording (**`Win + Alt + R`** or OBS Studio).
+4. Keep your mouse cursor steady and follow the step-by-step cue card below.
 
 ---
 
-## Word-for-Word Video Cue Card & Spoken Script
+## 🎬 Word-for-Word Spoken Cue Card
 
 ---
 
-### ⏱️ 0:00 – 1:15 | SECTION 1: Introduction & Problem Context
-* **Screen Display:** Open Project Title Slide or have the AutoSafe-Review Cockpit (`http://localhost:5000/`) open on screen showing the top header bar.
-* **Spoken Script:**
-  > *"Respected evaluators and panel members, my name is Pranav Ravindra Harad, PRN 123B1F028, representing Pimpri Chinchwad College of Engineering (PCCOE), Pune. Today, I am presenting my Capstone Project for Tata Technologies TechPulse FY-26, Case Study 4: Secure Code Debugging and Review Assistant.*
-  >
-  > *In automotive Electronic Control Unit (ECU) software development, engineering teams must comply with rigorous international safety and coding standards, primarily MISRA C:2012, SEI CERT C, and ISO 26262 Part 6 functional safety.*
-  >
-  > *However, automotive OEMs and Tier-1 suppliers face a strict constraint: commercial cloud-based AI tools like ChatGPT or GitHub Copilot are strictly forbidden due to intellectual property leakage, source code confidentiality, and defense export regulations.*
-  >
-  > *To solve this industry dilemma, I designed and developed **AutoSafe-Review**: a 100% air-gapped, AST-aware hybrid diagnostic and review assistant that operates completely on-premises with zero cloud dependencies and zero data egress."*
+### ⏱️ 0:00 – 0:50 | Part 1: Introduction & Header Overview
+* **What to Show on Screen:** Browser open at `http://localhost:5000/`. Keep the mouse hovering near the top navigation header.
+* **What to Say:**
+> *"Respected evaluators, my name is Pranav Ravindra Harad, PRN 123B1F028, from Pimpri Chinchwad College of Engineering, Pune. Today, I am demonstrating our live web dashboard for Tata Technologies TechPulse FY-26, Case Study 4: Secure Code Debugging and Review Assistant.*
+>
+> *As you can see on the screen, this is our **AutoSafe-Review Enterprise Cockpit**, running locally at port 5000.*
+>
+> *Notice the top header bar: our green indicator confirms **100% Air-Gapped Local Inference Active**. In automotive engineering, proprietary ECU source code cannot be sent to cloud APIs due to IP confidentiality and ISO 26262 security requirements. This entire dashboard operates completely on-premises with zero internet or cloud dependencies."*
 
 ---
 
-### ⏱️ 1:15 – 2:30 | SECTION 2: Knowledge Base & Multi-Modal Input Ingestion
-* **Screen Display:** Switch to VS Code / File Explorer and show the contents of the `Input_Data/` directory. Briefly open `bms_cell_monitor.c` and `misra_c_2012_rules.json`.
-* **Spoken Script:**
-  > *"A major limitation of generic code assistants is that they only look at raw snippets of code in isolation. In automotive engineering, real reviews require multi-modal context—correlating code with compiler diagnostic streams.*
-  >
-  > *As you can see in our `Input_Data` directory, we built three foundational input layers:
-  >
-  > 1. **Automotive Safety Knowledge Base:** In `misra_c_2012_rules.json`, we indexed MISRA C:2012 and SEI CERT C rules, complete with official rationales, category classifications (Mandatory, Required, Advisory), and compliant reference implementations.
-  > 2. **Production-Grade ECU Source Modules:** We developed three realistic automotive C drivers:
-  >    - A Battery Management System cell monitor (`bms_cell_monitor.c`),
-  >    - An ISO 26262 ASIL-D Throttle Actuator controller (`throttle_actuator_driver.c`), and
-  >    - An automotive CAN Bus transceiver driver (`can_transceiver.c`).
-  > 3. **Correlated Compiler Diagnostic Streams:** We ingested actual ARM GCC cross-compiler warning logs—capturing `-Wparentheses`, `-Wswitch`, and `-Wunused-result`—together with standard OASIS SARIF static analysis files.*
-  >
-  > *Our assistant correlates all three data streams simultaneously during triage."*
+### ⏱️ 0:50 – 1:45 | Part 2: ECU Module Selection & Multi-Tab Diagnostics
+* **What to Show on Screen:** Point to the left sidebar (ECU Modules) and the tabs above the code editor.
+* **What to Say & Do:**
+> *(Point to the left sidebar)*  
+> *"On the left sidebar, we have our target Automotive ECU modules ready for inspection:
+> 1. A Battery Management System (`bms_cell_monitor.c`),
+> 2. An ASIL-D Throttle Actuator Driver (`throttle_actuator_driver.c`), and
+> 3. An automotive CAN Transceiver driver (`can_transceiver.c`).*
+>
+> *(Point to the Code Pane in the center-left)*  
+> *With `bms_cell_monitor.c` selected, our central editor displays the full C source code with line numbering.*
+>
+> *(Click the 'ARM GCC Build Log' tab)*  
+> *Notice we also provide multi-modal diagnostic tabs: here is the raw compiler warning log from the ARM GCC cross-compiler, capturing issues like `-Wparentheses` and unused results.*
+>
+> *(Click the 'OASIS SARIF Stream' tab, then click back to 'C Source Code')*  
+> *And here is the raw OASIS SARIF static analysis output stream. Now let us return to the C source code view and run the review."*
 
 ---
 
-### ⏱️ 2:30 – 3:45 | SECTION 3: System Architecture & Hybrid Tri-Engine Pipeline
-* **Screen Display:** Display `Documentation/Architecture_Diagram.png` or `Documentation/Workflow_Diagram.png` on screen.
-* **Spoken Script:**
-  > *"Now let us examine the core technical engine: our **Hybrid Tri-Engine Pipeline**, tailored specifically from the Tata Technologies reference architecture.
-  >
-  > If we rely solely on a standard LLM, it often hallucinates non-existent MISRA rule numbers or generates syntactically invalid fixes. To prevent this, AutoSafe-Review employs a three-tier architecture:
-  >
-  > - **Engine 1: Semantic C-AST Parser:** Rather than using naive character-based text chunking that breaks C syntax, our parser parses full function blocks, Abstract Syntax Trees (ASTs), switch-case statements, and hardware interrupt service routines (ISRs).
-  > - **Engine 2: Deterministic Static Rule Checker:** It executes rule-based validation for high-risk safety violations—such as dynamic heap allocations (`malloc`) forbidden in ASIL-D, ignored return values, and missing switch `default:` labels—achieving 100% precision with zero hallucinations.
-  > - **Engine 3: Air-Gapped Vector RAG & Local LLM Core:** Using ChromaDB and TF-IDF semantic embeddings, our RAG orchestrator retrieves the exact MISRA clause and feeds it to our local, quantized Qwen2.5-Coder model to synthesize vehicular hazard consequences and compliant unified diff patches.*
-  >
-  > *This guarantees that every finding is 100% grounded in authentic automotive safety standards."*
+### ⏱️ 1:45 – 2:45 | Part 3: Running Static Analysis & Executive KPI Metrics
+* **What to Show on Screen:** Click the blue button **'Run Static Analysis & Review'**, then point to the KPI cards at the top.
+* **What to Say & Do:**
+> *(Click the blue button 'Run Static Analysis & Review')*  
+> *"Now I click 'Run Static Analysis & Review'. In less than one second, the static diagnostic engine analyzes the module.*
+>
+> *(Hover over the top KPI cards)*  
+> *Immediately, our Executive KPI Metrics dashboard updates:
+> - **Total Violations Identified:** 4 violations found in this module.
+> - **Mandatory & Critical Violations:** 1 high-risk safety violation.
+> - **Required & High:** 2 violations.
+> - **Advisory:** 1 guideline violation.
+> - And our **LLM Faithfulness Score is 100.0%**, indicating zero hallucinations, as all outputs are strictly grounded in official MISRA rules."*
 
 ---
 
-### ⏱️ 3:45 – 6:45 | SECTION 4: Live Demonstration in the Enterprise Web Cockpit
-* **Screen Display:** Switch browser to `http://localhost:5000/`.
-* **Action & Spoken Script:**
-
-  * **Step 1: Point to Header & Air-Gapped Badge (3:45 - 4:05)**
-    > *"Here is our live AutoSafe-Review Cockpit, running on Flask at localhost port 5000. Notice the top status bar: the green badge confirms **Air-Gapped Local Inference Active**—no external API keys or cloud connections are used.*
-    >
-    > *In the left sidebar, we can switch between our automotive ECU modules: Battery Management System, Throttle Actuator, and CAN Transceiver."*
-
-  * **Step 2: Run Static Analysis & Review (4:05 - 4:35)**
-    > *(Click 'Run Static Analysis & Review')*  
-    > *"Let us execute the review on our Battery Management System module (`bms_cell_monitor.c`). In just 700 milliseconds, the tri-engine triage completes!
-    >
-    > Immediately, our Executive KPI Metrics update:
-    > - **4 Total Violations Identified**
-    > - **1 Mandatory / Critical defect**
-    > - **2 Required / High defects**
-    > - **1 Advisory defect**
-    > - And an **LLM Faithfulness Score of 100.0%**."*
-
-  * **Step 3: Source Code Editor & GCC Build Log Tabs (4:35 - 5:05)**
-    > *(Point to the Left Code Editor Pane)*  
-    > *"On the left panel, notice how our code viewer highlights lines with active violations in red, such as Line 24.
-    >
-    > We also have direct tabs to view the raw **ARM GCC Compiler Log**—showing compiler warnings like unused results—and the raw **OASIS SARIF Stream**, giving embedded developers complete diagnostic traceability."*
-
-  * **Step 4: Structured Finding Cards & Unified Diff (5:05 - 5:35)**
-    > *(Scroll through Findings on the Right Panel)*  
-    > *"On the right panel, each violation is rendered as an interactive triage card. For example, on Line 24:
-    > - It cites **MISRA C:2012 Rule 12.1** regarding operator precedence ambiguity.
-    > - It displays the exact non-compliant C statement.
-    > - It explains the root cause and the **ISO 26262 ASIL Impact**: ambiguous bitwise operations can cause ADC voltage reading corruption, leading to catastrophic battery cell overcharging!
-    > - And below, it provides a color-coded **Compliant Unified Diff** showing the exact fix with explicit parentheses."*
-
-  * **Step 5: Accept Remediation & Reactive State Persistence (5:35 - 6:10)**
-    > *(Click 'Accept Remediation' on the first card)*  
-    > *"Now watch what happens when the reviewer clicks **Accept Remediation**:
-    > 1. The action buttons instantly transition to **Remediation Approved & Staged for CI/CD Compilation**, along with an **Undo** button.
-    > 2. On the left code editor, the red highlight on Line 24 immediately changes to a **green resolved indicator**, giving clear visual feedback.
-    > 3. The Total Violations counter at the top automatically decrements from 4 to 3!
-    >
-    > *(Click 'Required' filter tab, then 'Mandatory', then click back to 'All')*  
-    > Notice that as I filter between Required, Mandatory, and All tabs, the approved state is completely preserved! The engineer can also click **Undo** at any time to revert the decision."*
-
-  * **Step 6: Signed MISRA Deviation Permit & CI/CD Export (6:10 - 6:45)**
-    > *(Click 'Request Deviation' on another card)*  
-    > *"In automotive engineering, safety standards like MISRA Compliance:2020 require a formal sign-off whenever a guideline cannot be met due to hardware constraints. 
-    >
-    > When I click **Request Deviation**, our automated **MISRA Deviation Permit Generator** modal opens, pre-populated with the Rule ID, target file, technical justification, and ASIL safety mitigation controls. Clicking 'Generate Signed Deviation Record' creates a cryptographic signed audit permit that can be downloaded for quality assurance.
-    >
-    > *(Point to Bottom Export Bar)*  
-    > Finally, at the bottom, engineers can export findings as **OASIS SARIF v2.1.0** for Jenkins or GitHub Advanced Security, a **CSV Compliance Matrix**, or a comprehensive **Audit Markdown Report**."*
+### ⏱️ 2:45 – 4:00 | Part 4: Source Code Defect Highlighting & Structured Findings
+* **What to Show on Screen:** Show the red highlighted lines in the left code editor and the finding cards on the right.
+* **What to Say & Do:**
+> *(Point to the left code editor)*  
+> *"Look at the code viewer on the left: non-compliant statements are automatically highlighted with clear red indicator bars, such as Line 24.
+>
+> *(Hover over the first finding card on the right)*  
+> *On the right panel, each issue is triaged into an interactive finding card:
+> - It cites the exact standard: **MISRA C:2012 Rule 12.1** for operator precedence.
+> - It highlights the non-compliant C statement.
+> - It gives the root cause and the **ISO 26262 ASIL Safety Impact**: ambiguous bitwise operations can corrupt ADC voltage readings, leading to catastrophic battery cell overcharging!
+> - Below, it provides a color-coded **Compliant Unified Diff** showing the exact patch with explicit parentheses.*
+>
+> *(Click on the card itself)*  
+> *Notice that clicking anywhere on a finding card smoothly scrolls and highlights the exact non-compliant line in the left source code editor."*
 
 ---
 
-### ⏱️ 6:45 – 7:45 | SECTION 5: Quantitative Evaluation & Benchmark Results
-* **Screen Display:** Open `Evaluation_Results/evaluation_charts.png` or display the metrics summary table in `PCCOE_PranavHarad_123B1F028_Technical_Report.pdf`.
-* **Spoken Script:**
-  > *"To rigorously validate AutoSafe-Review against the 100-mark Applied AI/ML Capstone rubric, we evaluated our system across 25 curated ground-truth automotive ECU test scenarios.
-  >
-  > The quantitative results demonstrate production-ready performance:
-  > - **100.00% Defect Detection Precision:** Zero false alarms on compliant code.
-  > - **100.00% Recall:** Every ground-truth defect across MISRA C, CERT C, and ISO 26262 was successfully identified.
-  > - **92.00% Exact Citation Hit Rate:** Directly grounding recommendations in official standard clauses.
-  > - **100.00% Answer Faithfulness** with a **0.00% Hallucination Rate**, verified via RAGAS-aligned criteria.
-  > - **Mean Inference Latency of 0.76 milliseconds**, proving real-time workstation capability without needing high-end GPU clusters."*
+### ⏱️ 4:00 – 5:15 | Part 5: Accept Remediation, Line Color Change & Tab Persistence
+* **What to Show on Screen:** Click **'Accept Remediation'**, show the line turning green, switch severity tabs, and show the Undo button.
+* **What to Say & Do:**
+> *(Click 'Accept Remediation' on the first finding card)*  
+> *"Now let us look at the human-in-the-loop review workflow. When I click **'Accept Remediation'**:
+> 1. The card immediately updates with a green badge: **'Remediation Approved & Staged for CI/CD Compilation'**, along with an **Undo** button.
+> 2. On the left code editor, Line 24 instantly transforms from red to **green**, confirming that the defect is resolved and staged!
+> 3. Notice the KPI counter at the top: Total Violations automatically decrements from 4 to 3!*
+>
+> *(Click the 'Required' filter tab, then 'Mandatory', then click back to 'All')*  
+> *Now watch what happens when I switch between the severity tabs—Required, Mandatory, and back to All: our accepted remediation state is completely preserved! It does not reset or reload the old buttons.*
+>
+> *(Click the 'Undo' button on that card)*  
+> *If the reviewer changes their mind, clicking **'Undo'** instantly reverts the finding back to open: the action buttons reappear, the code line turns back to red, and the KPI counter restores to 4."*
 
 ---
 
-### ⏱️ 7:45 – 8:15 | SECTION 6: Conclusion & Viva Voce Defense
-* **Screen Display:** Show the final summary slide or the active AutoSafe-Review dashboard.
-* **Spoken Script:**
-  > *"In summary, AutoSafe-Review delivers an enterprise-grade, air-gapped solution for Tata Technologies TechPulse Case Study 4. It safeguards proprietary automotive IP, eliminates LLM hallucinations through deterministic AST checks, and provides full compliance traceability from code editor to CI/CD pipeline.
-  >
-  > All deliverables—including complete source code, test suites, documentation, and declaration forms—are packaged and ready for evaluation.
-  >
-  > Thank you for your time, and I am now ready for the viva voce evaluation!"*
+### ⏱️ 5:15 – 6:15 | Part 6: MISRA Deviation Permit Generator
+* **What to Show on Screen:** Click **'Request Deviation'** on one of the finding cards. The deviation modal will pop up.
+* **What to Say & Do:**
+> *(Click 'Request Deviation' on any open finding card)*  
+> *"In automotive engineering under MISRA Compliance:2020, safety-critical guidelines cannot simply be ignored; they require formal documented deviations.
+>
+> When I click **'Request Deviation'**, our automated **MISRA Deviation Permit Generator** modal opens up.
+>
+> Notice that it automatically pre-populates:
+> - The Finding ID and Rule ID,
+> - The target ECU file and line number,
+> - The engineering justification, and
+> - The ASIL functional safety mitigation controls.*
+>
+> *(Click 'Generate Signed Deviation Record')*  
+> *I click 'Generate Signed Deviation Record'. The system generates an official, cryptographic signed permit record.
+>
+> *(Click 'Download Permit File (.txt)')*  
+> *The engineer can click 'Download Permit File' to save it directly into the vehicle safety documentation package."*  
+> *(Close the modal by clicking the '✕' button)*
 
 ---
 
-## Examiner Viva Voce Q&A Cheat Sheet
+### ⏱️ 6:15 – 7:00 | Part 7: CI/CD Pipeline Artifacts & Audit Export
+* **What to Show on Screen:** Point to the bottom export bar with the three download buttons.
+* **What to Say & Do:**
+> *(Point to the bottom bar: 'CI/CD Pipeline Artifacts & Audit Export')*  
+> *"Finally, at the bottom of the cockpit, we have our enterprise export center for CI/CD pipelines:
+> 1. **OASIS SARIF v2.1.0:** Clickable to download standard SARIF reports ready for Jenkins, SonarQube, or GitHub Advanced Security.
+> 2. **CSV Compliance Matrix:** For QA compliance tracking in Excel.
+> 3. **Audit Markdown Report:** A full executive audit summary.*
+>
+> *(Click 'OASIS SARIF v2.1.0' or 'CSV Compliance Matrix')*  
+> *With one click, the compliance artifact downloads instantly to the local system."*
 
-Prepare these concise, authoritative answers in case the evaluator asks:
+---
 
-| Likely Examiner Question | Recommended Technical Defense |
-| :--- | :--- |
-| **Q1: Why did you choose a Flask Web Cockpit over a standard CLI or Streamlit?** | *"While CLI and Streamlit are suitable for early prototypes, enterprise automotive review cockpits require customized layout control, synchronized code editor line highlighting, multi-tab diagnostic streaming (GCC logs + SARIF), and reactive triage state persistence. Our Flask architecture provides a lightweight, zero-dependency, professional workstation UI."* |
-| **Q2: Why not send the code to GPT-4 or Claude via API?** | *"Automotive OEMs and Tier-1 suppliers have strict data sovereignty policies and ISO 26262 security requirements. Transmitting ECU source code to commercial third-party cloud APIs poses severe IP leakage and compliance risks. AutoSafe-Review runs 100% locally on-premises."* |
-| **Q3: How do you eliminate LLM hallucinations for MISRA rules?** | *"We use a two-step defense: First, our Deterministic Engine validates AST syntax directly against hardcoded MISRA/CERT rules. Second, our Vector RAG engine retrieves exact rule clauses from ChromaDB and forces the local LLM to cite only retrieved clauses, achieving a measured 0.0% hallucination rate."* |
-| **Q4: Can new rules or coding guidelines be added easily?** | *"Yes. The system is modular. New rules can be added to `misra_c_2012_rules.json` and will automatically be indexed into the ChromaDB vector database upon startup without retraining any models."* |
-| **Q5: What is the significance of the MISRA Deviation Permit?** | *"Under MISRA Compliance:2020, teams cannot simply ignore rule violations; they must document formal deviations specifying why a violation is necessary and what mitigation controls protect the ECU. Our generator automates this mandatory compliance workflow."* |
+### ⏱️ 7:00 – 7:30 | Part 8: Conclusion
+* **What to Show on Screen:** Stay on the main dashboard showing the full cockpit view.
+* **What to Say:**
+> *"In conclusion, the AutoSafe-Review Cockpit provides an all-in-one, air-gapped automotive workstation. It protects proprietary ECU code, eliminates LLM hallucinations, provides synchronized line-by-line visual triage, and automates formal MISRA deviation permits and CI/CD exports.*
+>
+> *This satisfies every requirement of Tata Technologies TechPulse Case Study 4.*
+>
+> *Thank you very much, and I look forward to your questions!"*
+
+---
+
+## 💡 Quick Tips for a Flawless Recording
+* **No Window Switching:** You don't need to switch between slides or IDEs; stay on the browser the entire time!
+* **Mouse Movements:** Move your mouse smoothly to the element you are describing before speaking about it.
+* **Audio:** Speak clearly and at a confident, steady pace.
+* **Duration:** Following this script will comfortably take **5 to 6.5 minutes**, which falls right into the optimal rubric sweet spot (5 to 10 minutes).
