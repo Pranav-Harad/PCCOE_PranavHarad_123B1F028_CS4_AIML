@@ -298,7 +298,8 @@ def build_technical_report_docx(output_path: str, arch_img_path: str, wf_img_pat
         ("Vector Store", "ChromaDB local vector index with metadata filters (standard, rule_id, severity)."),
         ("RAG Pipeline", "Hybrid Tri-Engine: AST code chunking + Deterministic static checking + Vector RAG rule retrieval with anti-hallucination citation guardrails."),
         ("Service Layer & UI", "Enterprise Flask Web Application (Port 5000) styled to official Tata Technologies enterprise design standards with HTML5/CSS3 cockpit, resizable draggable panes, custom module loader, and real-time in-place code patching."),
-        ("Deterministic Rules", "Hardcoded regex and AST syntax checkers for MISRA Rules 12.1, 21.3, 16.4, 17.7, 9.1, 11.4, and CERT CON33-C.")
+        ("Deterministic Rules", "Hardcoded regex and AST syntax checkers for MISRA Rules 12.1, 21.3, 16.4, 17.7, 9.1, 11.4, and CERT CON33-C."),
+        ("Production Deployment", "Waitress Multi-Threaded WSGI Server (Port 5000) / Air-Gapped Docker Container (docker-compose) / Automated GitHub Actions CI/CD Pipeline exporting OASIS SARIF v2.1.0.")
     ]
     t_arch = doc.add_table(rows=len(arch_table_data)+1, cols=2)
     t_arch.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -424,11 +425,36 @@ def build_technical_report_docx(output_path: str, arch_img_path: str, wf_img_pat
         rcap3.font.color.rgb = SLATE_GRAY
 
     # Section 7: Responsible AI & Functional Safety Governance
-    add_styled_heading(doc, "7. Responsible AI & Functional Safety Governance", level=1)
-    add_body_p(doc, "Every flagged violation explicitly cites authentic MISRA/CERT chapter and clause numbers, preventing fabricated rules.", bold_prefix="• Grounding & Verifiability: ", bullet=True)
-    add_body_p(doc, "100% on-premises processing ensures that proprietary automotive ECU firmware is never leaked over public networks.", bold_prefix="• Intellectual Property Privacy: ", bullet=True)
-    add_body_p(doc, "Engineers retain complete veto and approval power; fixes must be reviewed and approved before code integration.", bold_prefix="• Human-in-the-Loop Dispositions: ", bullet=True)
-    add_body_p(doc, "Generates signed MISRA Deviation Permits adhering strictly to MISRA Compliance:2020 guidelines.", bold_prefix="• Formal Compliance Records: ", bullet=True)
+    add_styled_heading(doc, "7. Responsible AI Measures & Functional Safety Governance", level=1)
+    rai_table_data = [
+        ("Grounding and citations", "Every flagged violation explicitly cites authentic MISRA/CERT chapter and clause numbers, preventing fabricated rules."),
+        ("Privacy", "100% on-premises processing ensures that proprietary automotive ECU firmware is never leaked over public networks."),
+        ("Security", "Air-gapped execution with zero network egress, enforcing SEI CERT C secure coding rules against buffer overflows and memory corruption."),
+        ("Human oversight / review", "Engineers retain complete veto and approval power; fixes must be reviewed and approved before code integration.")
+    ]
+    t_rai = doc.add_table(rows=len(rai_table_data)+1, cols=2)
+    t_rai.alignment = WD_TABLE_ALIGNMENT.CENTER
+    set_table_borders(t_rai)
+    format_cell_text(t_rai.cell(0, 0), "Area", bold=True, color=TATA_NAVY, size_pt=10)
+    format_cell_text(t_rai.cell(0, 1), "Measure Adopted in This Project", bold=True, color=TATA_NAVY, size_pt=10)
+    set_cell_background(t_rai.cell(0, 0), "E2E8F0")
+    set_cell_background(t_rai.cell(0, 1), "E2E8F0")
+    set_cell_margins(t_rai.cell(0, 0))
+    set_cell_margins(t_rai.cell(0, 1))
+
+    for idx, (k, v) in enumerate(rai_table_data, start=1):
+        c0, c1 = t_rai.cell(idx, 0), t_rai.cell(idx, 1)
+        format_cell_text(c0, k, bold=True, size_pt=9.5)
+        format_cell_text(c1, v, bold=False, size_pt=9.5)
+        if idx % 2 == 1:
+            set_cell_background(c0, "F8FAFC")
+            set_cell_background(c1, "F8FAFC")
+        set_cell_margins(c0)
+        set_cell_margins(c1)
+
+    for row in t_rai.rows:
+        for idx, width in enumerate(col_widths):
+            row.cells[idx].width = width
 
     # Section 8: Innovation Highlights
     add_styled_heading(doc, "8. Innovation Highlights", level=1)
@@ -436,6 +462,7 @@ def build_technical_report_docx(output_path: str, arch_img_path: str, wf_img_pat
     add_body_p(doc, "Engineers can upload custom local .c files or select pre-configured presets (ABS braking, EV inverter) to analyze custom firmware without restarting the server.", bold_prefix="2. Dynamic Custom C Module Loader: ")
     add_body_p(doc, "Ingests and cross-references source code, GCC compiler warnings, and SARIF static analysis streams simultaneously.", bold_prefix="3. Multi-Modal Diagnostic Correlation: ")
     add_body_p(doc, "Exports OASIS SARIF v2.1.0, CSV compliance matrices, and Markdown audit reports formatted for Jenkins, SonarQube, and GitHub Advanced Security.", bold_prefix="4. One-Click CI/CD Pipeline Artifacts: ")
+    add_body_p(doc, "Packaged via Waitress multi-threaded WSGI server and Docker container with health checks, integrated with an automated GitHub Actions DevSecOps workflow (.github/workflows/ecu_security_audit.yml) for firmware pull-request gating.", bold_prefix="5. Enterprise Air-Gapped Deployment & DevSecOps: ")
 
     # Section 9: Reflection & Conclusions
     add_styled_heading(doc, "9. Reflection & Conclusions", level=1)
@@ -627,14 +654,27 @@ if __name__ == "__main__":
     pkg_report_docx = os.path.join(doc_dir, "PCCOE_PranavHarad_123B1F028_Technical_Report.docx")
     pkg_synopsis_docx = os.path.join(project_dir, "Synopsis", "PCCOE_PranavHarad_123B1F028_Synopsis.docx")
 
-    print("[*] Generating Technical Report DOCX...")
-    build_technical_report_docx(root_report_docx, arch_img, wf_img, chart_img)
-    shutil.copyfile(root_report_docx, pkg_report_docx)
-    print(f"[+] Copied to package directory: {pkg_report_docx}")
+    print("[*] Generating Technical Report DOCX in package folder...")
+    build_technical_report_docx(pkg_report_docx, arch_img, wf_img, chart_img)
+    
+    # Try updating root copy; if locked by MS Word, save as _Updated.docx as well
+    try:
+        shutil.copyfile(pkg_report_docx, root_report_docx)
+        print(f"[+] Updated root copy: {root_report_docx}")
+    except PermissionError:
+        updated_path = os.path.join(root_dir, "PCCOE_PranavHarad_123B1F028_Technical_Report_Updated.docx")
+        shutil.copyfile(pkg_report_docx, updated_path)
+        print(f"[!] Root file is currently open in MS Word. Saved updated version as: {updated_path}")
 
-    print("[*] Generating Project Synopsis DOCX...")
-    build_synopsis_docx(root_synopsis_docx, arch_img)
-    shutil.copyfile(root_synopsis_docx, pkg_synopsis_docx)
-    print(f"[+] Copied to package directory: {pkg_synopsis_docx}")
+    print("[*] Generating Project Synopsis DOCX in package folder...")
+    build_synopsis_docx(pkg_synopsis_docx, arch_img)
+    
+    try:
+        shutil.copyfile(pkg_synopsis_docx, root_synopsis_docx)
+        print(f"[+] Updated root copy: {root_synopsis_docx}")
+    except PermissionError:
+        updated_syn = os.path.join(root_dir, "PCCOE_PranavHarad_123B1F028_Synopsis_Updated.docx")
+        shutil.copyfile(pkg_synopsis_docx, updated_syn)
+        print(f"[!] Root synopsis file open in Word. Saved updated version as: {updated_syn}")
 
     print("[SUCCESS] All DOCX deliverables generated successfully!")

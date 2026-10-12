@@ -49,6 +49,7 @@ Automotive ECU software engineering teams perform intensive debugging, static an
 | **RAG Pipeline** | Hybrid Tri-Engine: AST code chunking + Deterministic static checking + Vector RAG rule retrieval with anti-hallucination citation guardrails. |
 | **Service Layer & UI** | Flask Enterprise Cockpit (Port 5000) styled to official Tata Technologies enterprise design standards with resizable draggable panes, custom module loader, and in-place code patching. |
 | **Deterministic Rules** | Hardcoded regex and AST syntax checkers for MISRA Rules 12.1, 21.3, 16.4, 17.7, 9.1, 11.4, and CERT CON33-C. |
+| **Production Deployment** | Waitress multi-threaded WSGI server (Port 5000), air-gapped Docker container (`docker-compose.yml`), and automated GitHub Actions DevSecOps workflow (`.github/workflows/ecu_security_audit.yml`) exporting OASIS SARIF v2.1.0. |
 
 ---
 
@@ -87,11 +88,13 @@ Evaluation across 25 curated automotive ECU test scenarios yielded the following
 
 ---
 
-## 7. Responsible AI & Functional Safety Governance
-* **Grounding & Verifiability:** Strict anti-hallucination guardrails guarantee that every flagged violation cites an authentic MISRA/CERT chapter and clause.
-* **Intellectual Property Privacy:** 100% on-premises execution ensures proprietary automotive ECU firmware is never leaked over the internet.
-* **Human-in-the-Loop Dispositions:** Engineers retain complete veto and approval power; fixes must be staged and approved before integration.
-* **Formal Compliance Records:** Generates signed MISRA Deviation Permits adhering strictly to **MISRA Compliance:2020**.
+## 7. Responsible AI Measures & Functional Safety Governance
+| Area | Measure Adopted in This Project |
+|---|---|
+| **Grounding and citations** | Every flagged violation explicitly cites authentic MISRA/CERT chapter and clause numbers, preventing fabricated rules. |
+| **Privacy** | 100% on-premises processing ensures that proprietary automotive ECU firmware is never leaked over public networks. |
+| **Security** | Air-gapped execution with zero network egress, enforcing SEI CERT C secure coding rules against buffer overflows and memory corruption. |
+| **Human oversight / review** | Engineers retain complete veto and approval power; fixes must be reviewed and approved before code integration. |
 
 ---
 
@@ -100,6 +103,7 @@ Evaluation across 25 curated automotive ECU test scenarios yielded the following
 2. **Dynamic Custom C Module Loader:** Engineers can upload local `.c` files or select pre-configured presets (ABS braking, EV inverter) to analyze custom firmware without restarting the server.
 3. **Multi-Modal Diagnostic Correlation:** Ingests and cross-references source code, GCC compiler warnings, and SARIF static analysis streams simultaneously.
 4. **One-Click CI/CD Pipeline Artifacts:** Exports OASIS SARIF v2.1.0, CSV compliance matrices, and Markdown audit reports formatted for Jenkins, SonarQube, and GitHub Advanced Security.
+5. **Enterprise Air-Gapped Deployment & DevSecOps:** Packaged via Waitress multi-threaded WSGI and Docker containers with automated pull-request verification workflows (`.github/workflows/ecu_security_audit.yml`).
 
 ---
 
