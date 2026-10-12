@@ -29,3 +29,7 @@ dist/
 *.mov
 *.avi
 *.mkv
+
+# Temporary MS Office lock files
+~$*
+

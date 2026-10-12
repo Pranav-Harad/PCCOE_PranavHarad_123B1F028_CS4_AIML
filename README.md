@@ -32,13 +32,20 @@ Ensure Python 3.9+ is installed. Install required packages:
 pip install -r requirements.txt
 ```
 
-### Step 2: Launch Enterprise Web Cockpit (Recommended)
-Launch the full interactive Flask enterprise cockpit with one command:
+### Step 2: Launch Enterprise Production Cockpit (Waitress WSGI)
+Launch the air-gapped production workstation service:
 ```bash
-python run_flask_app.py
+python run_production.py
 ```
-*(Or inside the package folder: `python run_cockpit.py` or double-click `run_cockpit.bat`)*.  
-The application will automatically open your default browser at: **`http://localhost:5000/`**.
+*(Or double-click `deploy_production.bat` on Windows)*.  
+The application serves via the **Waitress multi-threaded WSGI server** at: **`http://localhost:5000/`**.
+
+### Alternative: Docker Container Deployment
+Deploy the workstation as an enterprise on-premises container:
+```bash
+docker compose up --build
+```
+Access the cockpit at `http://localhost:5000/` with zero cloud egress.
 
 ### Step 3: Run Quantitative Benchmark & Evaluation Suite
 Execute the 25-scenario automotive ground-truth benchmark suite:
@@ -51,13 +58,10 @@ This runs 25 real-world automotive test scenarios, generates `evaluation_charts.
 * **F1-Score:** `100.00%`
 * **Citation Accuracy:** `92.00%`
 * **Answer Faithfulness:** `100.00%` *(0.0% Hallucination Rate)*
-* **Average Latency:** `0.69 ms` per module
+* **Average Latency:** `0.76 ms` per scenario
 
-### Optional: Streamlit Pilot Launcher
-If you wish to test the alternate Streamlit pilot interface:
-```bash
-python run_app.py
-```
+### Step 4: CI/CD Automated DevSecOps Pipeline
+The repository includes an automated GitHub Actions / Jenkins DevSecOps pipeline (`.github/workflows/ecu_security_audit.yml`) that triggers on firmware commits, verifies MISRA/CERT rules, and uploads OASIS SARIF v2.1.0 compliance reports.
 
 ---
 

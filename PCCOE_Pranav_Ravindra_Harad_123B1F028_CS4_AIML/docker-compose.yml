@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  autosafe-review-cockpit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: autosafe-review:latest
+    container_name: autosafe_review_workstation
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - WSGI_THREADS=6
+      - AUTO_OPEN_BROWSER=0
+    volumes:
+      - ./Evaluation_Results:/app/Evaluation_Results
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
